@@ -4,7 +4,7 @@ import Event from './Event'
 
 
 const EventList = ({events}) => {
-  const eventNode = events.map((event) => <Event event={event} key={event.name} />)
+  const eventNode = events.map((event) => <Event event={event} key={event.number} />)
 return (<ul>{eventNode}</ul>)
 }
 
