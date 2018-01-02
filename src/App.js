@@ -13,50 +13,22 @@ class App extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      players: [
-        "jkjhk":{
-          name: "Jonas",
-          number: 1
-        },
-        "hjghgj": {
-          name: "Paul",
-          number: 2
-        }
-      ],
-      events: [
-        {
-          name: "Første",
-          number: 1,
-          players: [
-            "jkjhk"
-          ],
-          points: 4
-        },
-        {
-          name: "Andre",
-          number: 2,
-          players: [
-            "hjghgj"
-          ],
-          points: 4
-        },
-        {
-          number: 3,
-          players: [
-            "hjghgj"
-          ]
-        },
-        {
-          name: "Fjerde",
-          number: 4,
-          players: [
-            "jkjhk"
-          ],
-          points: 4
-        }
-
-      ]
+      players: [],
+      events: []
     }
+  }
+
+  setPlayers(playerarr){
+    console.log(playerarr)
+    this.setState({
+      players: playerarr
+    })
+  }
+
+  addEvent(no, nm, plyrs, pnts){
+    const event = {number: no, name: nm, players: plyrs, points: pnts}
+    this.state.events.push(event)
+    // recalculate scores if points
   }
 
   playersSort() {
@@ -66,29 +38,23 @@ class App extends React.Component{
     const bench = []
     const played = []
     const eliminated = []
-    for (let i = 0, j = players.length; i < j; i += 1){
-      const elength = events.length
+    for (let i = 0, j = players.length; i < j; i += 1){ // loop through players
       let benchflag = true
       let elimflag = false
-      let lastroundflag = true
-      for (let k = 0, l = elength; k < l; k += 1){
-        const plength = events[k].players.length
-        if (lastroundflag === false){
-          lastroundflag = true
-        }
-        if(!(events[k].points)){
-          lastroundflag = false
+      for (let k = 0, l = events.length; k < l; k += 1){ // loop through events
+        if(!(events[k].points)){ // put all players back on bench after elimination event
           benchflag = true
         }
-        for (let m = 0, n = plength; m < n; m += 1){
-          if(events[k].players[m] === players[i]){
+        for (let m = 0, n = events[k].players.length; m < n; m += 1){ // loop through players in events
+          if(events[k].players[m] === players[i]){ // if players have played or in elimination, remove from bench
             benchflag = false;
-            if(!(events[k].points)){
+            if(!(events[k].points)){ // no points indicate elimination event
               elimflag = true;
             }
           }
         }
       }
+      // Sort players according to flags
       if(benchflag === true && elimflag === false){
         bench.push(players[i])
       }else if(elimflag === false){
@@ -97,21 +63,9 @@ class App extends React.Component{
         eliminated.push(players[i])
       }
     }
-    const playersSorted = []
-    playersSorted.push(bench, played, eliminated)
-    return playersSorted
-  }
-
-  addPlayer(no, nm){
-    const key = 0;
-    const player = {number: no, name: nm, id: key}
-    this.state.players.push(player)
-  }
-
-  addEvent(no, nm, plyrs, pnts){
-    const event = {number: no, name: nm, players: plyrs, points: pnts}
-    this.state.events.push(event)
-    // recalculate scores if points
+    const playersSortd = []
+    playersSortd.push(bench, played, eliminated)
+    return playersSortd
   }
 
   render(){
@@ -119,13 +73,11 @@ class App extends React.Component{
     let nameComp = ""
     let elimComp = ""
     let newSceneComp = ""
-    if (!this.state.players){
-      nameComp = <PlayerNames/>
-    }
-    if (playersSorted[0]){
+    if (!this.state.players.length){
+      nameComp = <PlayerNames players={this.state.players} setPlayers={() => this.setPlayers()}/>
+    }else if (playersSorted[0]){
       newSceneComp = <NewScene bench={playersSorted[0]}/>
-    }
-    if (!playersSorted[0]){
+    }else{
       elimComp = <Elimination players={playersSorted[1]}/>
     }
     return(
