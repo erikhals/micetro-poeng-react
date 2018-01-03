@@ -16,10 +16,10 @@ class App extends React.Component{
       players: [],
       events: []
     }
+    this.setPlayers = this.setPlayers.bind(this)
   }
 
   setPlayers(playerarr){
-    console.log(playerarr)
     this.setState({
       players: playerarr
     })
@@ -63,18 +63,23 @@ class App extends React.Component{
         eliminated.push(players[i])
       }
     }
-    const playersSortd = []
+    const playersSortd = [] // create sorted array of arrays
     playersSortd.push(bench, played, eliminated)
     return playersSortd
   }
 
   render(){
-    const playersSorted = this.playersSort()
+    // declare empty components
     let nameComp = ""
     let elimComp = ""
     let newSceneComp = ""
+
+    // sort players
+    const playersSorted = this.playersSort()
+
+    // mount components based on sorted players
     if (!this.state.players.length){
-      nameComp = <PlayerNames players={this.state.players} setPlayers={() => this.setPlayers()}/>
+      nameComp = <PlayerNames players={this.state.players} setPlayers={this.setPlayers}/>
     }else if (playersSorted[0]){
       newSceneComp = <NewScene bench={playersSorted[0]}/>
     }else{
