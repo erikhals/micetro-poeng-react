@@ -38,13 +38,22 @@ class NewScene extends Component {
     })
   }
 
+  submitScene(event, props){
+    event.preventDefault()
+    const no = 1
+    const nm = event.target.elements.scenename.value
+    const plyrs = this.state.stage
+    const pnts = event.target.elements.points.value
+    props.addScene(no, nm, plyrs, pnts)
+  }
+
   render() {
     const benchNode = this.state.bench.map((player, index) => <PlayerChip key={player.number} number={player.number} name={player.name} id={index} handleSwitch={this.stagePlayer}/>)
     const stageNode = this.state.stage.map((player, index) => <PlayerChip key={player.number} number={player.number} name={player.name} id={index} handleSwitch={this.benchPlayer}/>)
     const pointRadios = () => {
       const radios = []
       for(let i=1; i<6; i+=1){
-        radios.push(<div key={i}><input type="radio" id={`point${i}`} name="points" /><label htmlFor={`point${i}`}>{i}p</label></div>)
+        radios.push(<div key={i}><input type="radio" name="points" id={`${i}`} value={`${i}`} /><label htmlFor={`point${i}`}>{i}p</label></div>)
       }
       return radios
     }
@@ -52,11 +61,13 @@ class NewScene extends Component {
     return (
       <div>
         <div>New Scene</div>
-        <input type="text" placeholder="Name"/>
-        <div>Points: {radios}</div>
-        <div>Players: {stageNode}</div>
-        <div>Bench: {benchNode}</div>
-        <button>Save</button>
+        <form onSubmit={this.submitScene}>
+          <input type="text" name="scenename" placeholder="Scenename"/>
+          <div>Points: {radios}</div>
+          <div>Players: {stageNode}</div>
+          <div>Bench: {benchNode}</div>
+          <button type="submit">Save</button>
+        </form>
       </div>
     )
   }
