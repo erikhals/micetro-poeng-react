@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 
 const PlayerNames = (props) => {
 
@@ -12,7 +13,6 @@ const PlayerNames = (props) => {
       const player = {number: i, name: playername}
       playerarray.push(player)
     }
-    console.log(playerarray)
     props.setPlayers(playerarray)
   }
 
@@ -29,6 +29,10 @@ const PlayerNames = (props) => {
     </form>
     </div>
   )
+};
+
+PlayerNames.propTypes = {
+  setPlayers: PropTypes.func.isRequired
 };
 
 export default PlayerNames;

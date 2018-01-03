@@ -2,8 +2,8 @@ import React from 'react'
 
 import Navbar from './components/Navbar'
 import PlayerNames from './components/PlayerNames'
-import EventList from './components/EventList';
-import NewScene from './components/NewScene';
+import EventList from './components/EventList'
+import NewScene from './components/NewScene'
 import Elimination from './components/Elimination'
 // import LoginPage from './components/LoginPage'
 
@@ -85,6 +85,7 @@ class App extends React.Component{
     }else{
       elimComp = <Elimination players={playersSorted[1]}/>
     }
+
     return(
     <div>
       <Navbar/>
