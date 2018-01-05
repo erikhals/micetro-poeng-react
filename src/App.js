@@ -17,6 +17,7 @@ class App extends React.Component{
       events: []
     }
     this.setPlayers = this.setPlayers.bind(this)
+    this.addEvent = this.addEvent.bind(this)
   }
 
   setPlayers(playerarr){
@@ -81,7 +82,7 @@ class App extends React.Component{
     if (!this.state.players.length){
       nameComp = <PlayerNames players={this.state.players} setPlayers={this.setPlayers}/>
     }else if (playersSorted[0]){
-      newSceneComp = <NewScene bench={playersSorted[0]}/>
+      newSceneComp = <NewScene bench={playersSorted[0]} addScene={this.addEvent}/>
     }else{
       elimComp = <Elimination players={playersSorted[1]}/>
     }

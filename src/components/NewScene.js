@@ -12,6 +12,7 @@ class NewScene extends Component {
     }
     this.stagePlayer = this.stagePlayer.bind(this)
     this.benchPlayer = this.benchPlayer.bind(this)
+    this.submitScene = this.submitScene.bind(this)
   }
 
   stagePlayer(playerindex){
@@ -38,13 +39,13 @@ class NewScene extends Component {
     })
   }
 
-  submitScene(event, props){
+  submitScene(event){
     event.preventDefault()
     const no = 1
     const nm = event.target.elements.scenename.value
     const plyrs = this.state.stage
     const pnts = event.target.elements.points.value
-    props.addScene(no, nm, plyrs, pnts)
+    this.props.addScene(no, nm, plyrs, pnts)
   }
 
   render() {
