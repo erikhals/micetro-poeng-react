@@ -17,6 +17,7 @@ class App extends React.Component{
       events: []
     }
     this.setPlayers = this.setPlayers.bind(this)
+    this.addEvent = this.addEvent.bind(this)
   }
 
   setPlayers(playerarr){
@@ -27,7 +28,11 @@ class App extends React.Component{
 
   addEvent(no, nm, plyrs, pnts){
     const event = {number: no, name: nm, players: plyrs, points: pnts}
-    this.state.events.push(event)
+    const eventarr = this.state.events
+    eventarr.push(event)
+    this.setState({
+      events: eventarr
+    })
     // recalculate scores if points
   }
 
@@ -81,7 +86,7 @@ class App extends React.Component{
     if (!this.state.players.length){
       nameComp = <PlayerNames players={this.state.players} setPlayers={this.setPlayers}/>
     }else if (playersSorted[0]){
-      newSceneComp = <NewScene bench={playersSorted[0]}/>
+      newSceneComp = <NewScene bench={playersSorted[0]} addScene={this.addEvent}/>
     }else{
       elimComp = <Elimination players={playersSorted[1]}/>
     }
