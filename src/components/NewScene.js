@@ -41,10 +41,10 @@ class NewScene extends Component {
 
   submitScene(event){
     event.preventDefault()
-    const no = 1
+    const no = this.props.eventNumber
     const nm = event.target.elements.scenename.value
     const plyrs = this.state.stage
-    const pnts = event.target.elements.points.value
+    const pnts = Number(event.target.elements.points.value)
     this.props.addScene(no, nm, plyrs, pnts)
   }
 
@@ -54,7 +54,7 @@ class NewScene extends Component {
     const pointRadios = () => {
       const radios = []
       for(let i=1; i<6; i+=1){
-        radios.push(<div key={i}><input type="radio" name="points" id={`${i}`} value={`${i}`} /><label htmlFor={`point${i}`}>{i}p</label></div>)
+        radios.push(<div key={i}><input type="radio" name="points" id={`point${i}`} value={i} /><label htmlFor={`point${i}`}>{i}p</label></div>)
       }
       return radios
     }
@@ -75,7 +75,9 @@ class NewScene extends Component {
 }
 
 NewScene.propTypes = {
-  bench: PropTypes.arrayOf(PropTypes.any).isRequired
+  bench: PropTypes.arrayOf(PropTypes.any).isRequired,
+  eventNumber: PropTypes.number.isRequired,
+  addScene: PropTypes.func.isRequired
 };
 
 export default NewScene;

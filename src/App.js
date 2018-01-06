@@ -14,7 +14,8 @@ class App extends React.Component{
     super(props)
     this.state = {
       players: [],
-      events: []
+      events: [],
+      newSceneMounted: true
     }
     this.setPlayers = this.setPlayers.bind(this)
     this.addEvent = this.addEvent.bind(this)
@@ -31,7 +32,8 @@ class App extends React.Component{
     const eventarr = this.state.events
     eventarr.push(event)
     this.setState({
-      events: eventarr
+      events: eventarr,
+      newSceneMounted: false
     })
     // recalculate scores if points
   }
@@ -79,14 +81,14 @@ class App extends React.Component{
     let elimComp = ""
     let newSceneComp = ""
 
+    const eventNumber = this.state.events.length + 1
     // sort players
     const playersSorted = this.playersSort()
-
     // mount components based on sorted players
-    if (!this.state.players.length){
+    if (this.state.players.length < 1){
       nameComp = <PlayerNames players={this.state.players} setPlayers={this.setPlayers}/>
     }else if (playersSorted[0]){
-      newSceneComp = <NewScene bench={playersSorted[0]} addScene={this.addEvent}/>
+      newSceneComp = <NewScene key={eventNumber} bench={playersSorted[0]} eventNumber={eventNumber} addScene={this.addEvent}/>
     }else{
       elimComp = <Elimination players={playersSorted[1]}/>
     }
