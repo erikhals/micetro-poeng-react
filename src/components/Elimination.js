@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 
 const Elimination = ({players}) => (
-  <div>Elimination {players} <button>Alle videre</button><button>Eliminer!</button></div>
+  <div>Elimination {players.length} <button>Alle videre</button><button>Eliminer!</button></div>
 );
 
 Elimination.propTypes = {

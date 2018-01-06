@@ -14,8 +14,7 @@ class App extends React.Component{
     super(props)
     this.state = {
       players: [],
-      events: [],
-      newSceneMounted: true
+      events: []
     }
     this.setPlayers = this.setPlayers.bind(this)
     this.addEvent = this.addEvent.bind(this)
@@ -90,6 +89,7 @@ class App extends React.Component{
     }else if (playersSorted[0].length > 0){
       newSceneComp = <NewScene key={eventNumber} bench={playersSorted[0]} eventNumber={eventNumber} addScene={this.addEvent}/>
     }else{
+      console.log(playersSorted)
       elimComp = <Elimination players={playersSorted[1]}/>
     }
 

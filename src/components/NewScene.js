@@ -8,13 +8,20 @@ class NewScene extends Component {
     super(props)
     this.state={
       bench: props.bench,
-      stage: []
+      stage: [],
+      points: 0
     }
+    this.setPoints = this.setPoints.bind(this)
     this.stagePlayer = this.stagePlayer.bind(this)
     this.benchPlayer = this.benchPlayer.bind(this)
     this.submitScene = this.submitScene.bind(this)
   }
 
+  setPoints(e){
+    this.setState(
+      {points: e.target.value}
+    )
+  }
   stagePlayer(playerindex){
     const fromBench = this.state.bench
     const player = fromBench.splice(playerindex, 1)[0]
@@ -54,7 +61,7 @@ class NewScene extends Component {
     const pointRadios = () => {
       const radios = []
       for(let i=1; i<6; i+=1){
-        radios.push(<div key={i}><input type="radio" name="points" id={`point${i}`} value={i} /><label htmlFor={`point${i}`}>{i}p</label></div>)
+        radios.push(<div key={i}><input type="radio" name="points" id={`point${i}`} value={i} onChange={this.setPoints} /><label htmlFor={`point${i}`}>{i}p</label></div>)
       }
       return radios
     }
@@ -67,7 +74,7 @@ class NewScene extends Component {
           <div>Points: {radios}</div>
           <div>Players: {stageNode}</div>
           <div>Bench: {benchNode}</div>
-          <button type="submit">Save</button>
+          <button type="submit" disabled={!this.state.points}>Save</button>
         </form>
       </div>
     )
