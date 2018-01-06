@@ -87,7 +87,7 @@ class App extends React.Component{
     // mount components based on sorted players
     if (this.state.players.length < 1){
       nameComp = <PlayerNames players={this.state.players} setPlayers={this.setPlayers}/>
-    }else if (playersSorted[0]){
+    }else if (playersSorted[0].length > 0){
       newSceneComp = <NewScene key={eventNumber} bench={playersSorted[0]} eventNumber={eventNumber} addScene={this.addEvent}/>
     }else{
       elimComp = <Elimination players={playersSorted[1]}/>
