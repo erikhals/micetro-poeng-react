@@ -52,13 +52,14 @@ class Elimination extends Component {
   }
 
   render() {
-    const benchNode = this.state.players.map((player, index) => <input key={player.number} value={false} type="checkbox" name={player.name} id={index} onChange={this.setPlayer}/>)
+    
+    const benchNode = this.state.players.map((player, index) => <li><input key={player.number} value={false} type="checkbox" name={`point${player.number}`} id={index} onChange={this.setPlayer}/><label htmlFor={`point${player.number}`}>{player.number}. {player.name}</label></li>)
 
     return (
       <div>
         <div>Elimination</div>
         <form onSubmit={this.submitElimination}>
-          <div>Eliminate: {benchNode}</div>
+          <div>Eliminate: <ul>{benchNode}</ul></div>
           <button type="submit" disabled={this.saveButtonActive()}>Save</button>
         </form>
       </div>
