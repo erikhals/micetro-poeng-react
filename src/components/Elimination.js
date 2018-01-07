@@ -5,34 +5,50 @@ class Elimination extends Component {
   constructor(props){
     super(props)
     this.state={
-      players: props.players,
+      players: props.players
     }
     this.setPlayer = this.setPlayer.bind(this)
     this.submitElimination = this.submitElimination.bind(this)
+    this.saveButtonActive = this.saveButtonActive.bind(this)
   }
 
   setPlayer(e){
     const playerindex = e.target.id
     const playerarray = this.state.players
-    console.log(e.target.checked)
     if (e.target.checked === true){
       playerarray[playerindex].marked = true
     }else{
       playerarray[playerindex].marked = false
     }
-    console.log(playerarray)
     this.setState({
       players: playerarray
     })
+  }
+
+  saveButtonActive(){
+    let active = true
+    const plyrs = this.state.players
+    for (let i = 0, j = plyrs.length; i < j; i+=1){
+      if (plyrs[i].marked === true)
+      active = false
+    }
+    return active
   }
 
   submitElimination(event){
     event.preventDefault()
     const no = this.props.eventNumber
     const nm = "Elimination"
-    const plyrs = this.state.marked
+    const plyrs = this.state.players
+    const markedplyrs = []
+     for(let i=0, j=plyrs.length; i<j; i+=1){
+       if(plyrs[i].marked === true){
+        delete plyrs[i].marked
+        markedplyrs.push(plyrs[i])
+      }
+     }
     const pnts = 0
-    this.props.addScene(no, nm, plyrs, pnts)
+    this.props.addEvent(no, nm, markedplyrs, pnts)
   }
 
   render() {
@@ -42,9 +58,8 @@ class Elimination extends Component {
       <div>
         <div>Elimination</div>
         <form onSubmit={this.submitElimination}>
-          <input type="text" name="scenename" placeholder="Scenename"/>
           <div>Eliminate: {benchNode}</div>
-          <button type="submit" disabled={!this.state.points}>Save</button>
+          <button type="submit" disabled={this.saveButtonActive()}>Save</button>
         </form>
       </div>
     )
@@ -54,7 +69,7 @@ class Elimination extends Component {
 Elimination.propTypes = {
   players: PropTypes.arrayOf(PropTypes.any).isRequired,
   eventNumber: PropTypes.number.isRequired,
-  addScene: PropTypes.func.isRequired
+  addEvent: PropTypes.func.isRequired
 };
 
 export default Elimination;
