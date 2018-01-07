@@ -29,8 +29,9 @@ class Elimination extends Component {
     let active = true
     const plyrs = this.state.players
     for (let i = 0, j = plyrs.length; i < j; i+=1){
-      if (plyrs[i].marked === true)
-      active = false
+      if (plyrs[i].marked === true){
+        active = false
+      }
     }
     return active
   }
@@ -52,8 +53,8 @@ class Elimination extends Component {
   }
 
   render() {
-    
-    const benchNode = this.state.players.map((player, index) => <li><input key={player.number} value={false} type="checkbox" name={`point${player.number}`} id={index} onChange={this.setPlayer}/><label htmlFor={`point${player.number}`}>{player.number}. {player.name}</label></li>)
+
+    const benchNode = this.state.players.map((player, index) => <li key={player.number}><input value={false} type="checkbox" name={`point${player.number}`} id={index} onChange={this.setPlayer}/><label htmlFor={`point${player.number}`}>{player.number}. {player.name}</label></li>)
 
     return (
       <div>
