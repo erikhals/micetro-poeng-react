@@ -20,6 +20,10 @@ class App extends React.Component{
     this.addEvent = this.addEvent.bind(this)
   }
 
+  componentWillMount(){
+    
+  }
+
   setPlayers(playerarr){
     this.setState({
       players: playerarr
