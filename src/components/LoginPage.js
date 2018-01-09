@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import * as firebase from 'firebase'
 
 const LoginPage = () => (
   <div>

@@ -1,6 +1,8 @@
 import React from 'react'
+import * as firebase from 'firebase'
 
 import Navbar from './components/Navbar'
+import LoginPage from './components/LoginPage'
 import PlayerNames from './components/PlayerNames'
 import EventList from './components/EventList'
 import NewScene from './components/NewScene'
@@ -14,14 +16,31 @@ class App extends React.Component{
     super(props)
     this.state = {
       players: [],
-      events: []
+      events: [],
+      authed: false,
+      loading: true
     }
     this.setPlayers = this.setPlayers.bind(this)
     this.addEvent = this.addEvent.bind(this)
   }
 
   componentWillMount(){
-    
+    this.removeListener = firebase.auth().onAuthStateChanged(firebaseUser => {
+      if(firebaseUser){
+        this.setState({
+          authed: true,
+          loading: false
+        })
+      }else{
+        this.setState({
+          authed: false,
+          loading: false
+        })
+      }
+    })
+  }
+  componentWillUnmount(){
+    this.removeListener()
   }
 
   setPlayers(playerarr){
@@ -79,6 +98,7 @@ class App extends React.Component{
 
   render(){
     // declare empty components
+    let loginComp = ""
     let nameComp = ""
     let elimComp = ""
     let newSceneComp = ""
@@ -87,7 +107,9 @@ class App extends React.Component{
     // sort players
     const playersSorted = this.playersSort()
     // mount components based on sorted players
-    if (this.state.players.length < 1){
+    if(this.state.authed === false){
+      loginComp = <LoginPage login={this.loginWithEmail}/>
+    }else if (this.state.players.length < 1){
       nameComp = <PlayerNames players={this.state.players} setPlayers={this.setPlayers}/>
     }else if (playersSorted[0].length > 0){
       newSceneComp = <NewScene key={eventNumber} bench={playersSorted[0]} eventNumber={eventNumber} addScene={this.addEvent}/>
@@ -98,6 +120,7 @@ class App extends React.Component{
     return(
     <div>
       <Navbar/>
+      {loginComp}
       {nameComp}
       <EventList events={this.state.events}/>
       {newSceneComp}
