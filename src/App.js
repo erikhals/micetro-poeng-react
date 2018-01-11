@@ -52,7 +52,6 @@ class App extends React.Component{
   }
 
   loginWithEmail(password){
-    console.log(password)
     const email = this.state.email
     firebase.auth().signInWithEmailAndPassword(email, password)
   }

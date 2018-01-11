@@ -5,7 +5,6 @@ const LoginPage = (props) => {
   const login = (event) => {
     event.preventDefault()
     const password = event.target.elements.password.value
-    console.log(password)
     props.login(password)
   }
   return(
