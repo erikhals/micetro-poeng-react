@@ -4,14 +4,17 @@ import PropTypes from 'prop-types'
 const LoginPage = (props) => {
   const login = (event) => {
     event.preventDefault()
-    const password = event.target.value
+    const password = event.target.elements.password.value
+    console.log(password)
     props.login(password)
   }
   return(
   <div>
     <h1>Login</h1>
-    <input type="text" placeholder="Password"/>
-    <button onClick={login}>Login</button>
+    <form onSubmit={login}>
+    <input type="text" name="password" placeholder="Password"/>
+    <button type="submit">Login</button>
+    </form>
   </div>
 )};
 

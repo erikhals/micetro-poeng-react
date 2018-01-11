@@ -17,9 +17,11 @@ class App extends React.Component{
     this.state = {
       players: [],
       events: [],
+      email: "erik@xvision.no",
       authed: false,
       loading: true
     }
+    this.loginWithEmail = this.loginWithEmail.bind(this)
     this.setPlayers = this.setPlayers.bind(this)
     this.addEvent = this.addEvent.bind(this)
   }
@@ -47,6 +49,12 @@ class App extends React.Component{
     this.setState({
       players: playerarr
     })
+  }
+
+  loginWithEmail(password){
+    console.log(password)
+    const email = this.state.email
+    firebase.auth().signInWithEmailAndPassword(email, password)
   }
 
   addEvent(no, nm, plyrs, pnts){
