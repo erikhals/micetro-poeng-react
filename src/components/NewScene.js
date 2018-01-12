@@ -52,7 +52,9 @@ class NewScene extends Component {
     const nm = event.target.elements.scenename.value
     const plyrs = this.state.stage
     const pnts = Number(event.target.elements.points.value)
-    this.props.addScene(no, nm, plyrs, pnts)
+    const scene = {number: no, name: nm, players: plyrs, points: pnts}
+    const eventarr = 0 // pull from firebase
+    // push to firebase
   }
 
   render() {

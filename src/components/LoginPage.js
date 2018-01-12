@@ -1,12 +1,15 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import * as firebase from 'firebase'
 
-const LoginPage = (props) => {
+const LoginPage = () => {
   const login = (event) => {
     event.preventDefault()
     const password = event.target.elements.password.value
-    props.login(password)
+    const email = "erikhals@gmail.com"
+    firebase.auth().signInWithEmailAndPassword(email, password)
   }
+
+
   return(
   <div>
     <h1>Login</h1>
@@ -16,9 +19,5 @@ const LoginPage = (props) => {
     </form>
   </div>
 )};
-
-LoginPage.propTypes = {
-  login: PropTypes.func.isRequired
-}
 
 export default LoginPage;

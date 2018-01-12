@@ -49,11 +49,12 @@ class Elimination extends Component {
       }
      }
     const pnts = 0
-    this.props.addEvent(no, nm, markedplyrs, pnts)
+    // pull from firebase
+    // push to firebase
+
   }
 
   render() {
-
     const benchNode = this.state.players.map((player, index) => <li key={player.number}><input value={false} type="checkbox" name={`point${player.number}`} id={index} onChange={this.setPlayer}/><label htmlFor={`point${player.number}`}>{player.number}. {player.name}</label></li>)
 
     return (
@@ -71,7 +72,6 @@ class Elimination extends Component {
 Elimination.propTypes = {
   players: PropTypes.arrayOf(PropTypes.any).isRequired,
   eventNumber: PropTypes.number.isRequired,
-  addEvent: PropTypes.func.isRequired
 };
 
 export default Elimination;

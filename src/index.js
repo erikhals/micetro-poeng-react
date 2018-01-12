@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import * as firebase from 'firebase'
 
-import App from './App'
+import AppContainer from './AppContainer'
 
 
 const config = {
@@ -18,6 +18,6 @@ firebase.initializeApp(config)
 
 
 ReactDOM.render(
-  <App />,
+  <AppContainer />,
   document.getElementById('root')
 );

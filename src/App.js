@@ -1,5 +1,4 @@
 import React from 'react'
-import * as firebase from 'firebase'
 
 import Navbar from './components/Navbar'
 import LoginPage from './components/LoginPage'
@@ -9,67 +8,12 @@ import NewScene from './components/NewScene'
 import Elimination from './components/Elimination'
 // import LoginPage from './components/LoginPage'
 
-window.id = 0;
+const App = (props) => {
 
-class App extends React.Component{
-  constructor(props){
-    super(props)
-    this.state = {
-      players: [],
-      events: [],
-      email: "erik@xvision.no",
-      authed: false,
-      loading: true
-    }
-    this.loginWithEmail = this.loginWithEmail.bind(this)
-    this.setPlayers = this.setPlayers.bind(this)
-    this.addEvent = this.addEvent.bind(this)
-  }
-
-  componentWillMount(){
-    this.removeListener = firebase.auth().onAuthStateChanged(firebaseUser => {
-      if(firebaseUser){
-        this.setState({
-          authed: true,
-          loading: false
-        })
-      }else{
-        this.setState({
-          authed: false,
-          loading: false
-        })
-      }
-    })
-  }
-  componentWillUnmount(){
-    this.removeListener()
-  }
-
-  setPlayers(playerarr){
-    this.setState({
-      players: playerarr
-    })
-  }
-
-  loginWithEmail(password){
-    const email = this.state.email
-    firebase.auth().signInWithEmailAndPassword(email, password)
-  }
-
-  addEvent(no, nm, plyrs, pnts){
-    const event = {number: no, name: nm, players: plyrs, points: pnts}
-    const eventarr = this.state.events
-    eventarr.push(event)
-    this.setState({
-      events: eventarr
-    })
-    // recalculate scores if points
-  }
-
-  playersSort() {
+  const playersSort = () => {
     // take players and run through events
-    const players = this.state.players
-    const events = this.state.events
+    const players = props.players
+    const events = props.events
     const bench = []
     const played = []
     const eliminated = []
@@ -103,25 +47,24 @@ class App extends React.Component{
     return playersSortd
   }
 
-  render(){
+
     // declare empty components
     let loginComp = ""
     let nameComp = ""
     let elimComp = ""
     let newSceneComp = ""
 
-    const eventNumber = this.state.events.length + 1
+
     // sort players
-    const playersSorted = this.playersSort()
     // mount components based on sorted players
-    if(this.state.authed === false){
-      loginComp = <LoginPage login={this.loginWithEmail}/>
-    }else if (this.state.players.length < 1){
-      nameComp = <PlayerNames players={this.state.players} setPlayers={this.setPlayers}/>
-    }else if (playersSorted[0].length > 0){
-      newSceneComp = <NewScene key={eventNumber} bench={playersSorted[0]} eventNumber={eventNumber} addScene={this.addEvent}/>
+    if(props.authed === false){
+      loginComp = <LoginPage/>
+    }else if (props.players.length < 1){
+      nameComp = <PlayerNames players={props.players}/>
+    }else if (playersSort[0].length > 0){
+      newSceneComp = <NewScene key={props.eventNumber} bench={playersSort[0]} eventNumber={props.eventNumber}/>
     }else{
-      elimComp = <Elimination players={playersSorted[1]} eventNumber={eventNumber} addEvent={this.addEvent}/>
+      elimComp = <Elimination players={playersSort[1]} eventNumber={props.eventNumber}/>
     }
 
     return(
@@ -129,11 +72,11 @@ class App extends React.Component{
       <Navbar/>
       {loginComp}
       {nameComp}
-      <EventList events={this.state.events}/>
+      <EventList events={props.events}/>
       {newSceneComp}
       {elimComp}
     </div>
     );
-  }
+
 }
 export default App

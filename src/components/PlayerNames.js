@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import * as firebase from 'firebase'
 
-const PlayerNames = (props) => {
+const PlayerNames = () => {
 
   const numberPlayers = 13
 
@@ -13,7 +13,10 @@ const PlayerNames = (props) => {
       const player = {number: i, name: playername}
       playerarray.push(player)
     }
-    props.setPlayers(playerarray)
+    const dbref = firebase.database().ref("state/players")
+    dbref.set({
+      playerarray
+    })
   }
 
   const nameInputs = []
@@ -29,10 +32,6 @@ const PlayerNames = (props) => {
     </form>
     </div>
   )
-};
-
-PlayerNames.propTypes = {
-  setPlayers: PropTypes.func.isRequired
 };
 
 export default PlayerNames;
