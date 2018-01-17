@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import Navbar from './components/Navbar'
 import LoginPage from './components/LoginPage'
@@ -10,43 +11,18 @@ import Elimination from './components/Elimination'
 
 const App = (props) => {
 
-  const playersSort = () => {
-    // take players and run through events
-    const players = props.players
-    const events = props.events
-    const bench = []
-    const played = []
-    const eliminated = []
-    for (let i = 0, j = players.length; i < j; i += 1){ // loop through players
-      let benchflag = true
-      let elimflag = false
-      for (let k = 0, l = events.length; k < l; k += 1){ // loop through events
-        if(!(events[k].points)){ // put all players back on bench after elimination event
-          benchflag = true
-        }
-        for (let m = 0, n = events[k].players.length; m < n; m += 1){ // loop through players in events
-          if(events[k].players[m] === players[i]){ // if players have played or in elimination, remove from bench
-            benchflag = false;
-            if(!(events[k].points)){ // no points indicate elimination event
-              elimflag = true;
-            }
-          }
-        }
-      }
-      // Sort players according to flags
-      if(benchflag === true && elimflag === false){
-        bench.push(players[i])
-      }else if(elimflag === false){
-        played.push(players[i])
-      }else{
-        eliminated.push(players[i])
-      }
-    }
-    const playersSortd = [] // create sorted array of arrays
-    playersSortd.push(bench, played, eliminated)
-    return playersSortd
-  }
+  const playerslist = props.players
+  const eventslist = props.events
 
+  const lastround = eventslist.slice(eventslist.findIndex(k => k.points === 0) + 1)
+  const played = [].concat(...lastround.map(e => e.players))
+  const eliminations = eventslist.filter(e => e.points === 0)
+  const eliminated = [].concat(...eliminations.map(e => e.players))
+  const rplyrs = playerslist.filter(function(e) {return this.indexOf(e)<0}, eliminated)
+  const bench = rplyrs.filter(function(e) {return this.indexOf(e)<0}, played)
+
+  const playersSort = []
+  playersSort.push(bench, played, eliminated)
 
     // declare empty components
     let loginComp = ""
@@ -54,13 +30,14 @@ const App = (props) => {
     let elimComp = ""
     let newSceneComp = ""
 
-
     // sort players
     // mount components based on sorted players
-    if(props.authed === false){
+    if(props.loading === true){
+      loginComp = <div>Loading</div>
+    }else if(props.authed === false){
       loginComp = <LoginPage/>
     }else if (props.players.length < 1){
-      nameComp = <PlayerNames players={props.players}/>
+      nameComp = <PlayerNames/>
     }else if (playersSort[0].length > 0){
       newSceneComp = <NewScene key={props.eventNumber} bench={playersSort[0]} eventNumber={props.eventNumber}/>
     }else{
@@ -78,5 +55,16 @@ const App = (props) => {
     </div>
     );
 
+}
+App.propTypes = {
+  eventNumber: PropTypes.number.isRequired,
+  players: PropTypes.arrayOf(PropTypes.any),
+  events: PropTypes.arrayOf(PropTypes.any),
+  authed: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+}
+App.defaultProps = {
+  players: [],
+  events: []
 }
 export default App

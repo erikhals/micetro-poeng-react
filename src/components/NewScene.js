@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import * as firebase from 'firebase'
 
 import PlayerChip from './PlayerChip'
 
@@ -53,8 +54,8 @@ class NewScene extends Component {
     const plyrs = this.state.stage
     const pnts = Number(event.target.elements.points.value)
     const scene = {number: no, name: nm, players: plyrs, points: pnts}
-    const eventarr = 0 // pull from firebase
-    // push to firebase
+    const evRef = firebase.database().ref("state/events")
+    evRef.push(scene)
   }
 
   render() {
@@ -86,7 +87,6 @@ class NewScene extends Component {
 NewScene.propTypes = {
   bench: PropTypes.arrayOf(PropTypes.any).isRequired,
   eventNumber: PropTypes.number.isRequired,
-  addScene: PropTypes.func.isRequired
 };
 
 export default NewScene;

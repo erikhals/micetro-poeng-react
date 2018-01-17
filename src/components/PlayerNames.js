@@ -14,9 +14,9 @@ const PlayerNames = () => {
       playerarray.push(player)
     }
     const dbref = firebase.database().ref("state/players")
-    dbref.set({
+    dbref.set(
       playerarray
-    })
+    )
   }
 
   const nameInputs = []

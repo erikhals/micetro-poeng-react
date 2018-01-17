@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import * as firebase from 'firebase'
 
 class Elimination extends Component {
   constructor(props){
@@ -42,16 +43,21 @@ class Elimination extends Component {
     const nm = "Elimination"
     const plyrs = this.state.players
     const markedplyrs = []
-     for(let i=0, j=plyrs.length; i<j; i+=1){
-       if(plyrs[i].marked === true){
+    const pnts = 0
+    for(let i=0, j=plyrs.length; i<j; i+=1){
+      if(plyrs[i].marked === true){
         delete plyrs[i].marked
         markedplyrs.push(plyrs[i])
       }
-     }
-    const pnts = 0
-    // pull from firebase
-    // push to firebase
-
+    }
+    const elEvent = {
+      "Number": no,
+      "Name": nm,
+      "Points": pnts,
+      "Players": markedplyrs
+    }
+    const evRef = firebase.database().ref("events")
+    evRef.push(elEvent)
   }
 
   render() {
