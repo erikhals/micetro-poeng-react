@@ -31,20 +31,27 @@ class AppContainer extends Component {
         })
       }
     })
-    db.on("value", snap =>{
-      const pl = snap.child("players").val()
+    firebase.database().ref("state/players").on("value", snap =>{
+      const pl = snap.val()
+
+      if(pl){this.setState(
+        {players: pl}
+      )}
+
+    })
+    firebase.database().ref("state/events").on("value", snap =>{
       const ev = []
-      snap.child("events").forEach((evsnap)=>{
+
+      snap.forEach((evsnap)=>{
         const item = evsnap.val()
         item.key = evsnap.key
         ev.push(item)
       })
-      if(pl){this.setState(
-        {players: pl}
-      )}
+
       if(ev){this.setState(
         {events: ev}
       )}
+
     })
   }
 

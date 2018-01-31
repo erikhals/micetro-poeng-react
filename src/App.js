@@ -19,41 +19,52 @@ const App = (props) => {
   const eliminations = eventslist.filter(e => e.points === 0)
   const eliminated = [].concat(...eliminations.map(e => e.players))
   const rplyrs = playerslist.filter(function(e) {return this.indexOf(e)<0}, eliminated)
-  const bench = rplyrs.filter(function(e) {return this.indexOf(e)<0}, played)
-
-  const playersSort = []
-  playersSort.push(bench, played, eliminated)
-
-    // declare empty components
-    let loginComp = ""
-    let nameComp = ""
-    let elimComp = ""
-    let newSceneComp = ""
-
-    // sort players
-    // mount components based on sorted players
-    if(props.loading === true){
-      loginComp = <div>Loading</div>
-    }else if(props.authed === false){
-      loginComp = <LoginPage/>
-    }else if (props.players.length < 1){
-      nameComp = <PlayerNames/>
-    }else if (playersSort[0].length > 0){
-      newSceneComp = <NewScene key={props.eventNumber} bench={playersSort[0]} eventNumber={props.eventNumber}/>
-    }else{
-      elimComp = <Elimination players={playersSort[1]} eventNumber={props.eventNumber}/>
+  const bench = rplyrs.filter(
+    (player) => {
+      console.log('played', played);
+      return played.indexOf(player) < 0;
     }
+  )
 
-    return(
-    <div>
-      <Navbar/>
-      {loginComp}
-      {nameComp}
-      <EventList events={props.events}/>
-      {newSceneComp}
-      {elimComp}
-    </div>
-    );
+  const playersSort = {
+    bench: bench,
+    played: played,
+    eliminated: eliminated,
+  }
+  //playersSort.push(bench, played, eliminated)
+
+  // declare empty components
+  let loginComp = ""
+  let nameComp = ""
+  let elimComp = ""
+  let newSceneComp = ""
+
+  // sort players
+  // mount components based on sorted players
+  if(props.loading === true){
+    loginComp = <div>Loading</div>
+  }else if(props.authed === false){
+    loginComp = <LoginPage/>
+  }else if (props.players.length < 1){
+    nameComp = <PlayerNames/>
+  }else if (playersSort.bench.length > 0){
+    newSceneComp = <NewScene key={props.eventNumber} bench={playersSort.bench} eventNumber={props.eventNumber}/>
+  }else{
+    elimComp = <Elimination players={playersSort.played} eventNumber={props.eventNumber}/>
+  }
+
+  console.log('newSceneComp', newSceneComp);
+
+  return(
+  <div>
+    <Navbar/>
+    {loginComp}
+    {nameComp}
+    <EventList events={props.events}/>
+    {newSceneComp}
+    {elimComp}
+  </div>
+  );
 
 }
 App.propTypes = {
