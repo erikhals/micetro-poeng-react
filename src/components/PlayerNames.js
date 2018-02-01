@@ -7,16 +7,12 @@ const PlayerNames = () => {
 
   const submitNames = (event) => {
     event.preventDefault()
-    const playerarray = []
+    const dbref = firebase.database().ref("state/players")
     for (let i = 1, j = numberPlayers + 1; i < j; i += 1 ){
       const playername = event.target.elements[`playername${i}`].value
       const player = {number: i, name: playername}
-      playerarray.push(player)
+      dbref.push(player)
     }
-    const dbref = firebase.database().ref("state/players")
-    dbref.set(
-      playerarray
-    )
   }
 
   const nameInputs = []

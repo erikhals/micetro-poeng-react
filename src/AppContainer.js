@@ -17,7 +17,6 @@ class AppContainer extends Component {
   }
 
   componentWillMount(){
-    const db = firebase.database().ref("state")
     this.removeListener = firebase.auth().onAuthStateChanged(firebaseUser => {
       if(firebaseUser){
         this.setState({
@@ -32,8 +31,13 @@ class AppContainer extends Component {
       }
     })
     firebase.database().ref("state/players").on("value", snap =>{
-      const pl = snap.val()
+      const pl = []
 
+      snap.forEach(playersnap => {
+        const player = playersnap.val()
+        player.key = playersnap.key
+        pl.push(player)
+      })
       if(pl){this.setState(
         {players: pl}
       )}

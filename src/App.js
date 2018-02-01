@@ -10,29 +10,22 @@ import Elimination from './components/Elimination'
 // import LoginPage from './components/LoginPage'
 
 const App = (props) => {
-
   const playerslist = props.players
+  const playersarr = []
+  for (let i=0; i<props.players.length; i+=1){
+    playerslist.push(props.players[i].number)
+  }
   const eventslist = props.events
 
-  const lastround = eventslist.slice(eventslist.findIndex(k => k.points === 0) + 1)
-  const played = [].concat(...lastround.map(e => e.players))
-  const eliminations = eventslist.filter(e => e.points === 0)
-  const eliminated = [].concat(...eliminations.map(e => e.players))
-  const rplyrs = playerslist.filter(function(e) {return this.indexOf(e)<0}, eliminated)
-  const bench = rplyrs.filter(
-    (player) => {
-      console.log('played', played);
-      return played.indexOf(player) < 0;
-    }
-  )
-
-  const playersSort = {
-    bench: bench,
-    played: played,
-    eliminated: eliminated,
-  }
-  //playersSort.push(bench, played, eliminated)
-
+  const lastround = eventslist.slice(eventslist.findIndex(event => event.points === 0) + 1)
+  const played = [].concat(...lastround.map(event => event.players))
+  const eliminations = eventslist.filter(event => event.points === 0)
+  const eliminated = [].concat(...eliminations.map(event => event.players))
+  const roundplayers = playersarr.filter(player =>  eliminated.indexOf(player) === -1)
+  const bench = roundplayers.filter(player => played.indexOf(player) === -1)
+  console.log("roundplayers", roundplayers)
+  console.log("played", played)
+  console.log("bench", bench)
   // declare empty components
   let loginComp = ""
   let nameComp = ""
@@ -47,10 +40,10 @@ const App = (props) => {
     loginComp = <LoginPage/>
   }else if (props.players.length < 1){
     nameComp = <PlayerNames/>
-  }else if (playersSort.bench.length > 0){
-    newSceneComp = <NewScene key={props.eventNumber} bench={playersSort.bench} eventNumber={props.eventNumber}/>
+  }else if (bench.length > 0){
+    newSceneComp = <NewScene key={props.eventNumber} bench={bench} players={props.players} eventNumber={props.eventNumber}/>
   }else{
-    elimComp = <Elimination players={playersSort.played} eventNumber={props.eventNumber}/>
+    elimComp = <Elimination players={played} eventNumber={props.eventNumber}/>
   }
 
   console.log('newSceneComp', newSceneComp);

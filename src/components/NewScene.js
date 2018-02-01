@@ -51,9 +51,9 @@ class NewScene extends Component {
     event.preventDefault()
     const no = this.props.eventNumber
     const nm = event.target.elements.scenename.value
-    const plyrs = this.state.stage
+    const sceneplayers = this.state.stage
     const pnts = Number(event.target.elements.points.value)
-    const scene = {number: no, name: nm, players: plyrs, points: pnts}
+    const scene = {number: no, name: nm, players: sceneplayers, points: pnts}
     const evRef = firebase.database().ref("state/events")
     evRef.push(scene)
   }
