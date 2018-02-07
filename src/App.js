@@ -10,22 +10,7 @@ import Elimination from './components/Elimination'
 // import LoginPage from './components/LoginPage'
 
 const App = (props) => {
-  const playerslist = props.players
-  const playersarr = []
-  for (let i=0; i<props.players.length; i+=1){
-    playerslist.push(props.players[i].number)
-  }
-  const eventslist = props.events
 
-  const lastround = eventslist.slice(eventslist.findIndex(event => event.points === 0) + 1)
-  const played = [].concat(...lastround.map(event => event.players))
-  const eliminations = eventslist.filter(event => event.points === 0)
-  const eliminated = [].concat(...eliminations.map(event => event.players))
-  const roundplayers = playersarr.filter(player =>  eliminated.indexOf(player) === -1)
-  const bench = roundplayers.filter(player => played.indexOf(player) === -1)
-  console.log("roundplayers", roundplayers)
-  console.log("played", played)
-  console.log("bench", bench)
   // declare empty components
   let loginComp = ""
   let nameComp = ""
@@ -38,12 +23,12 @@ const App = (props) => {
     loginComp = <div>Loading</div>
   }else if(props.authed === false){
     loginComp = <LoginPage/>
-  }else if (props.players.length < 1){
+  }else if (props.playerData.length < 1){
     nameComp = <PlayerNames/>
-  }else if (bench.length > 0){
-    newSceneComp = <NewScene key={props.eventNumber} bench={bench} players={props.players} eventNumber={props.eventNumber}/>
+  }else if (props.bench.length > 0){
+    newSceneComp = <NewScene key={props.eventNumber} bench={props.bench} players={props.playerData} eventNumber={props.eventNumber}/>
   }else{
-    elimComp = <Elimination players={played} eventNumber={props.eventNumber}/>
+    elimComp = <Elimination players={props.played} eventNumber={props.eventNumber}/>
   }
 
   console.log('newSceneComp', newSceneComp);
@@ -62,13 +47,18 @@ const App = (props) => {
 }
 App.propTypes = {
   eventNumber: PropTypes.number.isRequired,
-  players: PropTypes.arrayOf(PropTypes.any),
+  playerData: PropTypes.arrayOf(PropTypes.any),
+  bench: PropTypes.arrayOf(PropTypes.string),
+  played: PropTypes.arrayOf(PropTypes.string),
   events: PropTypes.arrayOf(PropTypes.any),
   authed: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
 }
 App.defaultProps = {
-  players: [],
+
+  bench: [],
+  played: [],
+  playerData: [],
   events: []
 }
 export default App

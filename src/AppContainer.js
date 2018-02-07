@@ -65,14 +65,32 @@ class AppContainer extends Component {
 
   render() {
     const eventNumber = this.state.events.length + 1
+    const playerData = this.state.players
+    const playerList = []
+    for (let i=0; i<playerData.length; i+=1){
+      playerList.push(playerData[i].key)
+    }
+    const eventData = this.state.events
+
+    const lastround = eventData.slice(eventData.findIndex(event => event.points === 0) + 1)
+    const played = [].concat(...lastround.map(event => event.players))
+    const eliminations = eventData.filter(event => event.points === 0)
+    const eliminated = [].concat(...eliminations.map(event => event.players))
+    const roundplayers = playerList.filter(player =>  eliminated.indexOf(player) === -1)
+    const bench = roundplayers.filter(player => played.indexOf(player) === -1)
+    const benchData = [].concat(...bench.map(player => playerData.filter(data => data.key === player)))
+    console.log("roundplayers", roundplayers)
+    console.log("played", played)
+    console.log("bench", bench)
     return (
       <App
-        players={this.state.players}
-        events={this.state.events}
+        playerData={playerData}
+        bench = {benchData}
+        played = {played}
+        eventData={eventData}
         authed={this.state.authed}
         loading={this.state.loading}
         eventNumber={eventNumber}
-        playersSort={this.playersSort}
         />
     );
   }
