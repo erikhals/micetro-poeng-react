@@ -20,8 +20,7 @@ class AppContainer extends Component {
     this.removeListener = firebase.auth().onAuthStateChanged(firebaseUser => {
       if(firebaseUser){
         this.setState({
-          authed: true,
-          loading: false
+          authed: true
         })
       }else{
         this.setState({
@@ -40,7 +39,8 @@ class AppContainer extends Component {
       })
       if(pl){
         this.setState(
-        {players: pl}
+        {players: pl,
+        loading: false}
         )
       }
 
