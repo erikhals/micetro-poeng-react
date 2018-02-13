@@ -74,7 +74,7 @@ class AppContainer extends Component {
     }
     const eventData = this.state.events
     const lastround = []
-    for (let i=eventData.length-1; i > 0; i-=1){
+    for (let i = eventData.length-1; i >= 0; i -= 1){  // Go through events from end
       if(eventData[i].points === 0){
         break;
       }else{
@@ -87,7 +87,6 @@ class AppContainer extends Component {
     const roundplayers = playerList.filter(player =>  eliminated.indexOf(player) === -1)
     const bench = roundplayers.filter(player => played.indexOf(player) === -1)
     const benchData = [].concat(...bench.map(player => playerData.filter(data => data.key === player)))
-
     return (
       <App
         playerData={playerData}

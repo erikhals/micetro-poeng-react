@@ -16,6 +16,7 @@ const App = (props) => {
   let nameComp = ""
   let elimComp = ""
   let newSceneComp = ""
+  let endMessage = ""
 
   // sort players
   // mount components based on sorted players
@@ -25,10 +26,14 @@ const App = (props) => {
     loginComp = <LoginPage/>
   }else if (props.playerData.length < 1){
     nameComp = <PlayerNames/>
+  }else if (props.bench.length === 1 && props.played.length === 0){
+    endMessage = `The show has ended, the winner is ${props.bench[0].number}`
   }else if (props.bench.length > 0){
     newSceneComp = <NewScene key={props.eventNumber} bench={props.bench} players={props.playerData} eventNumber={props.eventNumber}/>
-  }else{
+  }else if (props.played.length > 1){
     elimComp = <Elimination players={props.played} playerData={props.playerData} eventNumber={props.eventNumber}/>
+  }else{
+    endMessage = "Error"
   }
 
   return(
@@ -39,6 +44,7 @@ const App = (props) => {
     <EventList events={props.eventData} playerData={props.playerData}/>
     {newSceneComp}
     {elimComp}
+    {endMessage}
   </div>
   );
 

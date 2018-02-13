@@ -37,7 +37,6 @@ class Elimination extends Component {
   }
 
   submitElimination(event){
-    console.log("submitting")
     event.preventDefault()
     const no = this.props.eventNumber
     const nm = "Elimination"
@@ -51,7 +50,6 @@ class Elimination extends Component {
     }
     const evRef = firebase.database().ref("state/events")
     evRef.push(elEvent)
-    console.log("pushed")
   }
 
   render() {
