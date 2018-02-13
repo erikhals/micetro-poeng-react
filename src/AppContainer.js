@@ -38,9 +38,11 @@ class AppContainer extends Component {
         player.key = playersnap.key
         pl.push(player)
       })
-      if(pl){this.setState(
+      if(pl){
+        this.setState(
         {players: pl}
-      )}
+        )
+      }
 
     })
     firebase.database().ref("state/events").on("value", snap =>{
@@ -79,9 +81,7 @@ class AppContainer extends Component {
     const roundplayers = playerList.filter(player =>  eliminated.indexOf(player) === -1)
     const bench = roundplayers.filter(player => played.indexOf(player) === -1)
     const benchData = [].concat(...bench.map(player => playerData.filter(data => data.key === player)))
-    console.log("roundplayers", roundplayers)
-    console.log("played", played)
-    console.log("bench", bench)
+
     return (
       <App
         playerData={playerData}

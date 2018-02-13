@@ -28,17 +28,15 @@ const App = (props) => {
   }else if (props.bench.length > 0){
     newSceneComp = <NewScene key={props.eventNumber} bench={props.bench} players={props.playerData} eventNumber={props.eventNumber}/>
   }else{
-    elimComp = <Elimination players={props.played} eventNumber={props.eventNumber}/>
+    elimComp = <Elimination players={props.played} playerData={props.playerData} eventNumber={props.eventNumber}/>
   }
-
-  console.log('newSceneComp', newSceneComp);
 
   return(
   <div>
     <Navbar/>
     {loginComp}
     {nameComp}
-    <EventList events={props.events}/>
+    <EventList events={props.eventData} playerData={props.playerData}/>
     {newSceneComp}
     {elimComp}
   </div>
@@ -48,14 +46,14 @@ const App = (props) => {
 App.propTypes = {
   eventNumber: PropTypes.number.isRequired,
   playerData: PropTypes.arrayOf(PropTypes.any),
-  bench: PropTypes.arrayOf(PropTypes.string),
-  played: PropTypes.arrayOf(PropTypes.string),
-  events: PropTypes.arrayOf(PropTypes.any),
+  bench: PropTypes.arrayOf(PropTypes.any),
+  played: PropTypes.arrayOf(PropTypes.any),
+  eventData: PropTypes.arrayOf(PropTypes.any),
   authed: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
 }
 App.defaultProps = {
-
+  eventData: [],
   bench: [],
   played: [],
   playerData: [],

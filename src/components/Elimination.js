@@ -6,62 +6,59 @@ class Elimination extends Component {
   constructor(props){
     super(props)
     this.state={
-      players: props.players
+      players: props.players,
+      marked: []
     }
     this.setPlayer = this.setPlayer.bind(this)
     this.submitElimination = this.submitElimination.bind(this)
     this.saveButtonActive = this.saveButtonActive.bind(this)
   }
 
-  setPlayer(e){
-    const playerindex = e.target.id
-    const playerarray = this.state.players
-    if (e.target.checked === true){
-      playerarray[playerindex].marked = true
+  setPlayer(player){
+    const playerindex = player.target.id
+    let markedPlayers = this.state.marked
+    if (player.target.checked === true){
+      markedPlayers.push(playerindex)
     }else{
-      playerarray[playerindex].marked = false
+      markedPlayers = markedPlayers.filter(playing => playing !== playerindex)
     }
     this.setState({
-      players: playerarray
+      marked: markedPlayers
     })
   }
 
   saveButtonActive(){
     let active = true
-    const plyrs = this.state.players
-    for (let i = 0, j = plyrs.length; i < j; i+=1){
-      if (plyrs[i].marked === true){
-        active = false
-      }
+    const marked = this.state.marked
+    if (marked.length !== 0){
+      active = false
     }
     return active
   }
 
   submitElimination(event){
+    console.log("submitting")
     event.preventDefault()
     const no = this.props.eventNumber
     const nm = "Elimination"
-    const plyrs = this.state.players
-    const markedplyrs = []
+    const markedplyrs = this.state.marked
     const pnts = 0
-    for(let i=0, j=plyrs.length; i<j; i+=1){
-      if(plyrs[i].marked === true){
-        delete plyrs[i].marked
-        markedplyrs.push(plyrs[i])
-      }
-    }
     const elEvent = {
-      "Number": no,
-      "Name": nm,
-      "Points": pnts,
-      "Players": markedplyrs
+      "number": no,
+      "name": nm,
+      "points": pnts,
+      "players": markedplyrs
     }
-    const evRef = firebase.database().ref("events")
+    const evRef = firebase.database().ref("state/events")
     evRef.push(elEvent)
+    console.log("pushed")
   }
 
   render() {
-    const benchNode = this.state.players.map((player, index) => <li key={player.number}><input value={false} type="checkbox" name={`point${player.number}`} id={index} onChange={this.setPlayer}/><label htmlFor={`point${player.number}`}>{player.number}. {player.name}</label></li>)
+    const benchNode = this.state.players.map((player) => {
+      const pData = this.props.playerData.find(playerD => playerD.key === player)
+      return (<li key={player}><input value={false} type="checkbox" name={`point${player}`} id={player} onChange={this.setPlayer}/><label htmlFor={`point${player}`}>{pData.number}. {pData.name}</label></li>)
+    })
 
     return (
       <div>
@@ -77,7 +74,8 @@ class Elimination extends Component {
 
 Elimination.propTypes = {
   players: PropTypes.arrayOf(PropTypes.any).isRequired,
-  eventNumber: PropTypes.number.isRequired,
+  playerData: PropTypes.arrayOf(PropTypes.any).isRequired,
+  eventNumber: PropTypes.number.isRequired
 };
 
 export default Elimination;

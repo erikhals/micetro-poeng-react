@@ -13,8 +13,8 @@ class NewScene extends Component {
       points: 0
     }
     this.setPoints = this.setPoints.bind(this)
-    this.stagePlayer = this.stagePlayer.bind(this)
-    this.benchPlayer = this.benchPlayer.bind(this)
+    this.playerToStage = this.playerToStage.bind(this)
+    this.playerToBench = this.playerToBench.bind(this)
     this.submitScene = this.submitScene.bind(this)
   }
 
@@ -23,7 +23,7 @@ class NewScene extends Component {
       {points: e.target.value}
     )
   }
-  stagePlayer(playerindex){
+  playerToStage(playerindex){
     const fromBench = this.state.bench
     const player = fromBench.splice(playerindex, 1)[0]
     const toStage = this.state.stage
@@ -35,7 +35,7 @@ class NewScene extends Component {
     })
   }
 
-  benchPlayer(playerindex){
+  playerToBench(playerindex){
     const fromStage = this.state.stage
     const player = fromStage.splice(playerindex, 1)[0]
     const toBench = this.state.bench
@@ -49,18 +49,18 @@ class NewScene extends Component {
 
   submitScene(event){
     event.preventDefault()
-    const no = this.props.eventNumber
-    const nm = event.target.elements.scenename.value
-    const sceneplayers = this.state.stage
-    const pnts = Number(event.target.elements.points.value)
-    const scene = {number: no, name: nm, players: sceneplayers, points: pnts}
-    const evRef = firebase.database().ref("state/events")
-    evRef.push(scene)
+    const sceneNumber = this.props.eventNumber
+    const sceneName = event.target.elements.scenename.value
+    const scenePlayers = [].concat(...this.state.stage.map(player => player.key))
+    const scenePoints = Number(event.target.elements.points.value)
+    const scene = {number: sceneNumber, name: sceneName, players: scenePlayers, points: scenePoints}
+    const eventRef = firebase.database().ref("state/events")
+    eventRef.push(scene)
   }
 
   render() {
-    const benchNode = this.state.bench.map((player, index) => <PlayerChip key={player.number} number={player.number} name={player.name} id={index} handleSwitch={this.stagePlayer}/>)
-    const stageNode = this.state.stage.map((player, index) => <PlayerChip key={player.number} number={player.number} name={player.name} id={index} handleSwitch={this.benchPlayer}/>)
+    const benchNode = this.state.bench.map((player, index) => <PlayerChip key={player.number} number={player.number} name={player.name} id={index} handleSwitch={this.playerToStage}/>)
+    const stageNode = this.state.stage.map((player, index) => <PlayerChip key={player.number} number={player.number} name={player.name} id={index} handleSwitch={this.playerToBench}/>)
     const pointRadios = () => {
       const radios = []
       for(let i=1; i<6; i+=1){
