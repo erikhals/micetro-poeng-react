@@ -63,7 +63,7 @@ class Elimination extends Component {
         <div>Elimination</div>
         <form onSubmit={this.submitElimination}>
           <div>Eliminate: <ul>{benchNode}</ul></div>
-          <button type="submit" disabled={this.saveButtonActive()}>Save</button>
+          <button type="submit" disabled={this.state.marked.length < 1 || this.state.marked.length === this.state.players.length}>Save</button>
         </form>
       </div>
     )
