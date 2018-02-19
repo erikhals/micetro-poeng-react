@@ -64,10 +64,11 @@ class NewScene extends Component {
     const pointRadios = () => {
       const radios = []
       for(let i=1; i<6; i+=1){
-        radios.push(<div key={i}><input type="radio" name="points" id={`point${i}`} value={i} onChange={this.setPoints} /><label htmlFor={`point${i}`}>{i}p</label></div>)
+        radios.push(<div key={i}><input type="radio" name="points" id={`point${i}`} value={i} onChange={this.setPoints} /> <label htmlFor={`point${i}`}>{i}p</label> </div>)
       }
       return radios
     }
+
     const radios = pointRadios()
     return (
       <div>
@@ -76,8 +77,8 @@ class NewScene extends Component {
           <input type="text" name="scenename" placeholder="Scenename"/>
           <div>Points: {radios}</div>
           <div>Players: {stageNode}</div>
+          <button type="submit" disabled={(this.state.points < 1 || this.state.stage.length < 1)}>Save</button>
           <div>Bench: {benchNode}</div>
-          <button type="submit" disabled={!this.state.points}>Save</button>
         </form>
       </div>
     )
