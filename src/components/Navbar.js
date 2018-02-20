@@ -1,10 +1,17 @@
 import React from 'react'
 import * as firebase from 'firebase'
 
-const Navbar = () => (
+const Navbar = () => {
+  const resetState = () => {
+    const stateRef = firebase.database().ref("state")
+    stateRef.remove()
+  }
+
+  return(
   <div>
-    Navbar
+    <button onClick={resetState}>Reset</button>
   </div>
-);
+  )
+};
 
 export default Navbar;

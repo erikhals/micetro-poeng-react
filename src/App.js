@@ -5,8 +5,8 @@ import Navbar from './components/Navbar'
 import LoginPage from './components/LoginPage'
 import PlayerNames from './components/PlayerNames'
 import EventList from './components/EventList'
-import NewScene from './components/NewScene'
-import Elimination from './components/Elimination'
+import NewSceneContainer from './components/NewSceneContainer'
+import EliminationContainer from './components/EliminationContainer'
 // import LoginPage from './components/LoginPage'
 
 const App = (props) => {
@@ -29,9 +29,9 @@ const App = (props) => {
   }else if (props.bench.length === 1 && props.played.length === 0){
     endMessage = `The show has ended, the winner is ${props.bench[0].number}`
   }else if (props.bench.length > 0){
-    newSceneComp = <NewScene key={props.eventNumber} bench={props.bench} players={props.playerData} eventNumber={props.eventNumber}/>
+    newSceneComp = <NewSceneContainer key={props.eventNumber} bench={props.bench} players={props.playerData} eventNumber={props.eventNumber}/>
   }else if (props.played.length > 1){
-    elimComp = <Elimination players={props.played} playerData={props.playerData} eventNumber={props.eventNumber}/>
+    elimComp = <EliminationContainer players={props.played} playerData={props.playerData} eventNumber={props.eventNumber}/>
   }else{
     endMessage = "Error"
   }
