@@ -15,13 +15,12 @@ const NewScene = (props) => {
     return radios
   }
 
-  const radios = pointRadios()
   return (
     <div>
       <div>New Scene</div>
       <form onSubmit={props.submitScene}>
         <input type="text" name="scenename" placeholder="Scenename"/>
-        <div>Points: {radios}</div>
+        <div>Points: {pointRadios()}</div>
         <div>Players: {stageNode}</div>
         <button type="submit" disabled={(props.points < 1 || props.stage.length < 1)}>Save</button>
         <div>Bench: {benchNode}</div>
