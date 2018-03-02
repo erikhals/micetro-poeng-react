@@ -56,7 +56,7 @@ class EliminationContainer extends Component {
   render() {
 
     const submitDisabled = this.state.marked.length < 1 || this.state.marked.length === this.props.players.length
-
+    
     return (
       <Elimination
         submitDisabled={submitDisabled}

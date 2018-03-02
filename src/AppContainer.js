@@ -16,6 +16,8 @@ class AppContainer extends Component {
     }
   }
 
+
+
   componentWillMount(){
     this.removeListener = firebase.auth().onAuthStateChanged(firebaseUser => {
       if(firebaseUser){
@@ -47,17 +49,28 @@ class AppContainer extends Component {
     })
     firebase.database().ref("state/events").on("value", snap =>{
       const ev = []
+      const pPoints = []
 
       snap.forEach((evsnap)=>{
         const item = evsnap.val()
         item.key = evsnap.key
         ev.push(item)
+        // Add points to players
+        for(let i=0; i < item.players.length; i+=1){
+          const plkey = pPoints.filter(pl => pl.key === item.players[i])
+          if(plkey.length < 1){
+            const player = {key: item.players[i]}
+            player.points = Number(item.points)
+            pPoints.push(player)
+          }else{
+            plkey[0].points += item.points
+          }
+        }
       })
-
       if(ev){this.setState(
-        {events: ev}
+        {events: ev,
+        playerPoints: pPoints}
       )}
-
     })
   }
 
@@ -90,6 +103,7 @@ class AppContainer extends Component {
     return (
       <App
         playerData={playerData}
+        playerPoints={this.state.playerPoints}
         bench = {benchData}
         played = {played}
         eventData={eventData}
