@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import Navbar from './components/Navbar'
 import LoginPage from './components/LoginPage'
@@ -8,6 +9,14 @@ import EventList from './components/EventList'
 import NewSceneContainer from './components/NewSceneContainer'
 import EliminationContainer from './components/EliminationContainer'
 // import LoginPage from './components/LoginPage'
+
+const Outer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  @media(max-width: 875px){
+    grid-template-columns: 1fr;
+  }
+`
 
 const App = (props) => {
 
@@ -37,7 +46,7 @@ const App = (props) => {
   }
 
   return(
-  <div>
+  <Outer>
     <Navbar/>
     {loginComp}
     {nameComp}
@@ -45,7 +54,7 @@ const App = (props) => {
     {newSceneComp}
     {elimComp}
     {endMessage}
-  </div>
+  </Outer>
   );
 
 }

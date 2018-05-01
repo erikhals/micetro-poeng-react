@@ -16,8 +16,6 @@ class AppContainer extends Component {
     }
   }
 
-
-
   componentWillMount(){
     this.removeListener = firebase.auth().onAuthStateChanged(firebaseUser => {
       if(firebaseUser){
