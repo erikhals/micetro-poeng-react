@@ -5,8 +5,10 @@ import styled from 'styled-components'
 import Event from './Event'
 
 const EventListWrapper = styled.ul`
+  grid-column: 2;
   list-style: none;
   padding-left: 0px;
+  background-color: #dddddd;
 `
 
 const EventList = props => {

@@ -1,7 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import PlayerChip from './PlayerChip'
+
+const NewSceneWrapper = styled.div`
+  grid-column: 2;
+  padding: 16px;
+  background-color: #eeeeee;
+`
+const PointsWrapper = styled.div`
+  
+`
 
 const NewScene = (props) => {
 
@@ -16,16 +26,16 @@ const NewScene = (props) => {
   }
 
   return (
-    <div>
+    <NewSceneWrapper>
       <div>New Scene</div>
       <form onSubmit={props.submitScene}>
         <input type="text" name="scenename" placeholder="Scenename"/>
-        <div>Points: {pointRadios()}</div>
+        <PointsWrapper>Points: {pointRadios()}</PointsWrapper>
         <div>Players: {stageNode}</div>
         <button type="submit" disabled={(props.points < 1 || props.stage.length < 1)}>Save</button>
         <div>Bench: {benchNode}</div>
       </form>
-    </div>
+    </NewSceneWrapper>
   )
 }
 

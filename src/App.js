@@ -13,8 +13,9 @@ import EliminationContainer from './components/EliminationContainer'
 const Outer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 20px 1fr;
   @media(max-width: 875px){
-    grid-template-columns: 1fr;
+    grid-template-columns: 10px 1fr 10px;
   }
 `
 

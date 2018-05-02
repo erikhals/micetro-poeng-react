@@ -1,5 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+
+const EliminationWrapper = styled.div`
+  grid-column: 2;
+  padding: 16px;
+  background-color: #EEEEEE;
+`
 
 const Elimination = (props) => {
 
@@ -9,13 +16,13 @@ const Elimination = (props) => {
   })
 
   return (
-    <div>
+    <EliminationWrapper>
       <div>Elimination</div>
       <form onSubmit={props.submitElimination}>
         <div>Eliminate: <ul>{benchNode}</ul></div>
         <button type="submit" disabled={props.submitDisabled}>Save</button>
       </form>
-    </div>
+    </EliminationWrapper>
   )
 }
 

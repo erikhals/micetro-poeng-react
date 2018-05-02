@@ -1,5 +1,12 @@
 import React from 'react'
 import * as firebase from 'firebase'
+import styled from 'styled-components'
+
+const NavbarWrapper = styled.div`
+  grid-column: 1/4;
+  grid-row: 1;
+  background-color: #CCCCCC;
+`
 
 const Navbar = () => {
   const resetState = () => {
@@ -13,10 +20,10 @@ const Navbar = () => {
   }
 
   return(
-  <div>
+  <NavbarWrapper>
     <button onClick={resetState}>Reset</button>
     <button onClick={undoLast}>Undo</button>
-  </div>
+  </NavbarWrapper>
   )
 };
 
