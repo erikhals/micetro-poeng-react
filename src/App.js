@@ -13,7 +13,8 @@ import EliminationContainer from './components/EliminationContainer'
 const Outer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 20px 1fr;
+  grid-template-rows: 20vh 80vh;
+  font-family: "Arial", sans-serif;
   @media(max-width: 875px){
     grid-template-columns: 10px 1fr 10px;
   }
@@ -41,7 +42,7 @@ const App = (props) => {
   }else if (props.bench.length > 0){
     newSceneComp = <NewSceneContainer key={props.eventNumber} bench={props.bench} players={props.playerData} eventNumber={props.eventNumber}/>
   }else if (props.played.length > 1){
-    elimComp = <EliminationContainer players={props.played} playerData={props.playerData} eventNumber={props.eventNumber}/>
+    elimComp = <EliminationContainer players={props.played} playerData={props.playerData} playerPoints={props.playerPoints} eventNumber={props.eventNumber}/>
   }else{
     endMessage = "Error"
   }
@@ -62,6 +63,7 @@ const App = (props) => {
 App.propTypes = {
   eventNumber: PropTypes.number.isRequired,
   playerData: PropTypes.arrayOf(PropTypes.any),
+  playerPoints: PropTypes.arrayOf(PropTypes.any),
   bench: PropTypes.arrayOf(PropTypes.any),
   played: PropTypes.arrayOf(PropTypes.any),
   eventData: PropTypes.arrayOf(PropTypes.any),
@@ -73,6 +75,7 @@ App.defaultProps = {
   bench: [],
   played: [],
   playerData: [],
+  playerPoints: [],
   events: []
 }
 export default App

@@ -4,7 +4,6 @@ import * as firebase from 'firebase'
 
 import AppContainer from './AppContainer'
 
-
 const config = {
     apiKey: "AIzaSyDA3OKvkpat-9LFYSG0GnfY2xrfpLmz4aE",
     authDomain: "micetro-poeng.firebaseapp.com",
