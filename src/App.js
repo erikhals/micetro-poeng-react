@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { injectGlobal } from 'styled-components'
 
 import Navbar from './components/Navbar'
 import LoginPage from './components/LoginPage'
@@ -10,11 +10,18 @@ import NewSceneContainer from './components/NewSceneContainer'
 import EliminationContainer from './components/EliminationContainer'
 // import LoginPage from './components/LoginPage'
 
+injectGlobal`
+  @import url('https://fonts.googleapis.com/css?family=Cairo');
+  body{
+    padding: 0;
+    margin: 0;
+    font-family: "Cairo", sans-serif;
+  }
+`
+
 const Outer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 20vh 80vh;
-  font-family: "Arial", sans-serif;
   @media(max-width: 875px){
     grid-template-columns: 10px 1fr 10px;
   }

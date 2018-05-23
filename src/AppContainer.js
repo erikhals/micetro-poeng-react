@@ -98,6 +98,7 @@ class AppContainer extends Component {
     const roundplayers = playerList.filter(player =>  eliminated.indexOf(player) === -1)
     const bench = roundplayers.filter(player => played.indexOf(player) === -1)
     const benchData = [].concat(...bench.map(player => playerData.filter(data => data.key === player)))
+
     return (
       <App
         playerData={playerData}

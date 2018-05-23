@@ -3,9 +3,11 @@ import * as firebase from 'firebase'
 import styled from 'styled-components'
 
 const NavbarWrapper = styled.div`
-  grid-column: 1/4;
-  grid-row: 1;
+  overflow: hidden;
   background-color: #CCCCCC;
+  position: fixed;
+  top: 0;
+  width: 100%;
 `
 
 const Navbar = () => {

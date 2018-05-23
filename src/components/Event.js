@@ -6,10 +6,18 @@ const EventWrapper = styled.li`
   color: F5F5F5;
   padding: 16px;
 `
+const SceneName = styled.div`
+  float: left;
+`
+const ScenePoints = styled.div`
+  float: right;
+`
 
 const PlayerList = styled.ul`
   list-style: none;
   padding-left: 0px;
+  clear: left;
+  display: flex;
 `
 
 const Event = (props) => {
@@ -18,8 +26,12 @@ const Event = (props) => {
   const players = props.event.players.map(player => {
     const pData = props.playerData.find(playerD => playerD.key === player)
     return(<li key={player}>{pData.number}. {pData.name}</li>)})
-return(<EventWrapper>Sc {number}. {name} {props.event.points}p. <PlayerList>{players}</PlayerList></EventWrapper>)
-}
+return(
+  <EventWrapper>
+    <SceneName>Sc {number}. {name} </SceneName><ScenePoints>{props.event.points}p.</ScenePoints>
+    <PlayerList>{players}</PlayerList>
+  </EventWrapper>
+)}
 
 Event.propTypes = {
   event: PropTypes.objectOf(PropTypes.any).isRequired,

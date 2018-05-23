@@ -12,20 +12,16 @@ class NewSceneContainer extends Component {
       stage: [],
       points: 0
     }
-    this.setPoints = this.setPoints.bind(this)
-    this.playerToStage = this.playerToStage.bind(this)
-    this.playerToBench = this.playerToBench.bind(this)
-    this.submitScene = this.submitScene.bind(this)
   }
 
-  setPoints(e){
+  setPoints = (e) => {
     const sPoints = Number(e.target.value)
     this.setState(
       {points: sPoints}
     )
   }
 
-  playerToStage(playerindex){
+  playerToStage = (playerindex) => {
     const fromBench = this.state.bench
     const player = fromBench.splice(playerindex, 1)[0]
     const toStage = this.state.stage
@@ -37,7 +33,7 @@ class NewSceneContainer extends Component {
     })
   }
 
-  playerToBench(playerindex){
+  playerToBench = (playerindex) => {
     const fromStage = this.state.stage
     const player = fromStage.splice(playerindex, 1)[0]
     const toBench = this.state.bench
@@ -49,7 +45,7 @@ class NewSceneContainer extends Component {
     })
   }
 
-  submitScene(event){
+  submitScene = (event) => {
     event.preventDefault()
     const sceneNumber = this.props.eventNumber
     const sceneName = event.target.elements.scenename.value

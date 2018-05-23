@@ -10,7 +10,7 @@ const NewSceneWrapper = styled.div`
   background-color: #eeeeee;
 `
 const PointsWrapper = styled.div`
-  
+  display: flex;
 `
 
 const NewScene = (props) => {

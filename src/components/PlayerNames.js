@@ -1,5 +1,23 @@
 import React from 'react';
 import * as firebase from 'firebase'
+import styled from 'styled-components'
+
+const PlayerNamesWrapper = styled.div`
+  grid-column: 2;
+`
+const Input = styled.input`
+  padding: 0.5em;
+  margin: 0.5em;
+  border: none;
+  border-radius: 3px;
+  display: table-cell;
+  width: 80%;
+`
+const NameListItem = styled.div`
+  background: papayawhip;
+  padding: 4px;
+  margin: 4px;
+`
 
 const PlayerNames = () => {
 
@@ -18,15 +36,15 @@ const PlayerNames = () => {
   const nameInputs = []
 
   for (let i = 1, j = numberPlayers + 1; i < j; i += 1){
-    nameInputs.push(<div key={i}>{i}. <input type="text" name={`playername${i}`} placeholder="Name"/></div>)
+    nameInputs.push(<NameListItem key={i}>{i}. <Input type="text" name={`playername${i}`} placeholder="Name"/></NameListItem>)
   }
   return (
-    <div>
+    <PlayerNamesWrapper>
     <form onSubmit={submitNames}>
     {nameInputs}
     <button type="submit">Submit names</button>
     </form>
-    </div>
+  </PlayerNamesWrapper>
   )
 };
 

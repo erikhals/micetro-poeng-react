@@ -10,12 +10,9 @@ class EliminationContainer extends Component {
     this.state={
       marked: []
     }
-    this.markPlayer = this.markPlayer.bind(this)
-    this.submitElimination = this.submitElimination.bind(this)
-    this.saveButtonActive = this.saveButtonActive.bind(this)
   }
 
-  markPlayer(player){
+  markPlayer = (player) => {
     const playerindex = player.target.id
     let markedPlayers = this.state.marked
     if (player.target.checked === true){
@@ -28,7 +25,7 @@ class EliminationContainer extends Component {
     })
   }
 
-  saveButtonActive(){
+  saveButtonActive = () => {
     let active = true
     const marked = this.state.marked
     if (marked.length !== 0){
@@ -37,7 +34,7 @@ class EliminationContainer extends Component {
     return active
   }
 
-  submitElimination(event){
+  submitElimination = (event) => {
     event.preventDefault()
     const no = this.props.eventNumber
     const nm = "Elimination"
