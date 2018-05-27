@@ -12,6 +12,10 @@ const NewSceneWrapper = styled.div`
 const PointsWrapper = styled.div`
   display: flex;
 `
+const PointsRadio = styled.input`
+  position: absolute;
+  opacity: 0;
+`
 
 const NewScene = (props) => {
 
@@ -20,7 +24,7 @@ const NewScene = (props) => {
   const pointRadios = () => {
     const radios = []
     for(let i=1; i<6; i+=1){
-      radios.push(<div key={i}><input type="radio" name="points" id={`point${i}`} value={i} onChange={props.setPoints} /> <label htmlFor={`point${i}`}>{i}p</label> </div>)
+      radios.push(<div key={i}><PointsRadio type="radio" name="points" id={`point${i}`} value={i} onChange={props.setPoints} /> <label htmlFor={`point${i}`}>{i}p</label> </div>)
     }
     return radios
   }

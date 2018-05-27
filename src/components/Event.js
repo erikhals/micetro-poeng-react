@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import PlayerChip from './PlayerChip'
+
 const EventWrapper = styled.li`
   color: F5F5F5;
   padding: 16px;
@@ -25,7 +27,7 @@ const Event = (props) => {
   const name = props.event.name
   const players = props.event.players.map(player => {
     const pData = props.playerData.find(playerD => playerD.key === player)
-    return(<li key={player}>{pData.number}. {pData.name}</li>)})
+    return(<PlayerChip key={player} id={pData.number} number={pData.number} name={pData.name}/>)})
 return(
   <EventWrapper>
     <SceneName>Sc {number}. {name} </SceneName><ScenePoints>{props.event.points}p.</ScenePoints>
