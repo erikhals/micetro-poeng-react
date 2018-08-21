@@ -5,7 +5,8 @@ import styled from 'styled-components'
 const EliminationWrapper = styled.div`
   grid-column: 2;
   padding: 16px;
-  background-color: #EEEEEE;
+  background-color: #414141;
+  color: #FFFFFF;
 `
 
 const Elimination = (props) => {

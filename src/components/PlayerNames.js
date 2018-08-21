@@ -4,6 +4,18 @@ import styled from 'styled-components'
 
 const PlayerNamesWrapper = styled.div`
   grid-column: 2;
+  color: #FFFFFF;
+`
+const PlayerNumber = styled.div`
+  float: left;
+  background: #227B9B;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 50%;
+  text-align: center;
+  color: white;
+  margin: 0 8px 0 -12px;
 `
 const Input = styled.input`
   padding: 0.5em;
@@ -14,7 +26,6 @@ const Input = styled.input`
   width: 80%;
 `
 const NameListItem = styled.div`
-  background: papayawhip;
   padding: 4px;
   margin: 4px;
 `
@@ -36,7 +47,7 @@ const PlayerNames = () => {
   const nameInputs = []
 
   for (let i = 1, j = numberPlayers + 1; i < j; i += 1){
-    nameInputs.push(<NameListItem key={i}>{i}. <Input type="text" name={`playername${i}`} placeholder="Name"/></NameListItem>)
+    nameInputs.push(<NameListItem key={i}><PlayerNumber>{i}.</PlayerNumber> <Input type="text" name={`playername${i}`} placeholder="Name"/></NameListItem>)
   }
   return (
     <PlayerNamesWrapper>

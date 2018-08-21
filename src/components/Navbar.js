@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 const NavbarWrapper = styled.div`
   overflow: hidden;
-  background-color: #CCCCCC;
+  background-color: #227B9B;
   position: fixed;
   top: 0;
   width: 100%;

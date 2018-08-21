@@ -7,7 +7,8 @@ import PlayerChip from './PlayerChip'
 const NewSceneWrapper = styled.div`
   grid-column: 2;
   padding: 16px;
-  background-color: #eeeeee;
+  background-color: #414141;
+  color: #FFFFFF;
 `
 const PointsWrapper = styled.div`
   display: flex;
