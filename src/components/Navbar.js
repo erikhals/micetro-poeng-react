@@ -8,6 +8,7 @@ const NavbarWrapper = styled.div`
   position: fixed;
   top: 0;
   width: 100%;
+  height: 35px;
 `
 
 const Navbar = () => {
@@ -20,11 +21,19 @@ const Navbar = () => {
         snap.ref.remove()
     })
   }
+  const logOut = () => {
+    firebase.auth().signOut().then(() => {
+      console.log("signed out")
+    }, (error) => {
+      console.log("error signing out", error)
+    })
+  }
 
   return(
   <NavbarWrapper>
     <button onClick={resetState}>Reset</button>
     <button onClick={undoLast}>Undo</button>
+    <button onClick={logOut}>Log out</button>
   </NavbarWrapper>
   )
 };

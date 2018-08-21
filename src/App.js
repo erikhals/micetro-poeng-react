@@ -21,7 +21,8 @@ injectGlobal`
 
 const Outer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  margin-top: 35px;
+  grid-template-columns: 1fr 2fr 1fr;
   @media(max-width: 875px){
     grid-template-columns: 10px 1fr 10px;
   }

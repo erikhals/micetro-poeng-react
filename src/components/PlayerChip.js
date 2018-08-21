@@ -18,6 +18,7 @@ const ChipIcon = styled.div`
   background: #009587;
   width: 32px;
   height: 32px;
+  line-height: 32px;
   border-radius: 50%;
   text-align: center;
   color: white;
