@@ -22,9 +22,9 @@ class NewSceneContainer extends Component {
   }
 
   playerToStage = (playerindex) => {
-    const fromBench = this.state.bench
+    const fromBench = Array.from(this.state.bench)
     const player = fromBench.splice(playerindex, 1)[0]
-    const toStage = this.state.stage
+    const toStage = Array.from(this.state.stage)
     toStage.push(player)
     toStage.sort((a,b) =>  a.number - b.number);
     this.setState({
@@ -34,9 +34,9 @@ class NewSceneContainer extends Component {
   }
 
   playerToBench = (playerindex) => {
-    const fromStage = this.state.stage
+    const fromStage = Array.from(this.state.stage)
     const player = fromStage.splice(playerindex, 1)[0]
-    const toBench = this.state.bench
+    const toBench = Array.from(this.state.bench)
     toBench.push(player)
     toBench.sort((a,b) =>  a.number - b.number);
     this.setState({

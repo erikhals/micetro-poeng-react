@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const ChipWrapper = styled.div`
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: #FFDF72;
-  text-color: #000000;
+  color: #000000;
   height: 32px;
   margin: 0 5px 3px 0;
   padding: 0 12px;

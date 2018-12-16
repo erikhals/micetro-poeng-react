@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import Event from './Event'
 
-const EventListWrapper = styled.ul`
+const Container = styled.ul`
   grid-column: 2;
   list-style: none;
   padding-left: 0px;
@@ -13,7 +13,7 @@ const EventListWrapper = styled.ul`
 
 const EventList = props => {
   const eventNode = props.events.map(event => <Event event={event} key={event.key} playerData={props.playerData} />)
-return (<EventListWrapper>{eventNode}</EventListWrapper>)
+return (<Container>{eventNode}</Container>)
 }
 
 EventList.propTypes = {

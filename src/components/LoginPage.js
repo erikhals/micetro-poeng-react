@@ -1,5 +1,11 @@
 import React from 'react'
 import * as firebase from 'firebase'
+import styled from 'styled-components'
+
+const LoginWrapper = styled.div`
+  grid-column: 2;
+  color: #FFFFFF;
+`
 
 const LoginPage = () => {
   const login = (event) => {
@@ -11,13 +17,13 @@ const LoginPage = () => {
 
 
   return(
-  <div>
+  <LoginWrapper>
     <h1>Login</h1>
     <form onSubmit={login}>
-    <input type="text" name="password" placeholder="Password"/>
+    <input type="password" name="password" placeholder="Password"/>
     <button type="submit">Login</button>
     </form>
-  </div>
+  </LoginWrapper>
 )};
 
 export default LoginPage;

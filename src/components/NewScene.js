@@ -10,13 +10,57 @@ const NewSceneWrapper = styled.div`
   background-color: #414141;
   color: #FFFFFF;
 `
+const SceneNameInput = styled.input`
+  padding: 8px 8px;
+  font-size: 1em
+`
 const PointsWrapper = styled.div`
   display: flex;
+  margin: 16px 0;
+  align-items: center;
+`
+
+const PointsLabel = styled.label`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: purple;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
 `
 const PointsRadio = styled.input`
   position: absolute;
   opacity: 0;
+  &:checked + ${PointsLabel} {
+    background: #227B9B;
+  }
 `
+const PlayersWrapper = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  margin 16px 0;
+`
+const BenchWrapper = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  margin: 16px 0;
+`
+
+const Button = styled.button`
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  background: white;
+  font-size: 1em;
+  &:disabled {
+    background: silver;
+    cursor: auto;
+  }
+`
+
 
 const NewScene = (props) => {
 
@@ -25,7 +69,7 @@ const NewScene = (props) => {
   const pointRadios = () => {
     const radios = []
     for(let i=1; i<6; i+=1){
-      radios.push(<div key={i}><PointsRadio type="radio" name="points" id={`point${i}`} value={i} onChange={props.setPoints} /> <label htmlFor={`point${i}`}>{i}p</label> </div>)
+      radios.push(<div key={i}><PointsRadio type="radio" name="points" id={`point${i}`} value={i} onChange={props.setPoints} /> <PointsLabel htmlFor={`point${i}`}>{i}p</PointsLabel> </div>)
     }
     return radios
   }
@@ -34,11 +78,11 @@ const NewScene = (props) => {
     <NewSceneWrapper>
       <div>New Scene</div>
       <form onSubmit={props.submitScene}>
-        <input type="text" name="scenename" placeholder="Scenename"/>
+        <SceneNameInput type="text" name="scenename" placeholder="Scenename"/>
         <PointsWrapper>Points: {pointRadios()}</PointsWrapper>
-        <div>Players: {stageNode}</div>
-        <button type="submit" disabled={(props.points < 1 || props.stage.length < 1)}>Save</button>
-        <div>Bench: {benchNode}</div>
+        <PlayersWrapper>Players: {stageNode}</PlayersWrapper>
+        <Button type="submit" disabled={(props.points < 1 || props.stage.length < 1)}>Save scene</Button>
+        <BenchWrapper>Bench: {benchNode}</BenchWrapper>
       </form>
     </NewSceneWrapper>
   )
