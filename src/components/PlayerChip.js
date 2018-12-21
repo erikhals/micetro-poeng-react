@@ -13,7 +13,7 @@ const ChipWrapper = styled.div`
   padding: 0 12px;
   border-radius: 32px;
   font-size: 13px;
-  cursor: pointer;
+  cursor: ${props => props.clickable ? "pointer" : "auto"};
 `
 const ChipIcon = styled.div`
   display: block;
@@ -35,7 +35,7 @@ const PlayerChip = (props) => {
   }
 
   return(
-    <ChipWrapper onClick={handleClick}><ChipIcon>{props.number}</ChipIcon> {props.name}</ChipWrapper>
+    <ChipWrapper onClick={handleClick} clickable={props.clickable}><ChipIcon>{props.number}</ChipIcon> {props.name}</ChipWrapper>
   )
 };
 
@@ -43,11 +43,13 @@ PlayerChip.propTypes = {
   number: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
-  handleSwitch: PropTypes.func
+  handleSwitch: PropTypes.func,
+  clickable: PropTypes.bool
 };
 
 PlayerChip.defaultProps = {
-  handleSwitch: () => {}
+  handleSwitch: () => {},
+  clickable: true
 }
 
 export default PlayerChip;

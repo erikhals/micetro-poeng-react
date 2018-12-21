@@ -43,7 +43,7 @@ const Event = (props) => {
   const name = props.event.name
   const players = props.event.players.map(player => {
     const pData = props.playerData.find(playerD => playerD.key === player)
-    return(<PlayerChip key={player} id={pData.number} number={pData.number} name={pData.name} disabled/>)})
+    return(<PlayerChip key={player} id={pData.number} number={pData.number} name={pData.name} clickable={false}/>)})
 return(
   <EventWrapper>
     <SceneName>Sc {number}. {name} </SceneName><ScenePoints>{props.event.points}p.</ScenePoints>
