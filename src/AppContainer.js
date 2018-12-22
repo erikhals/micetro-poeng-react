@@ -82,7 +82,7 @@ class AppContainer extends Component {
   }
 
   render() {
-    const eventNumber = this.state.events.length + 1
+    
     const playerData = this.state.players
     const playerPoints = this.state.playerPoints
     const playerList = []
@@ -110,6 +110,9 @@ class AppContainer extends Component {
       return {"key": player, "points": nPoints.points, "name": nName.name, "number": nName.number}
     })
     playedData.sort((a,b)=> b.points - a.points)
+    const sceneNumber = this.state.events.length + 1 - eliminations.length
+    const roundNumber = eliminations ? eliminations.length + 1 : 1
+
 
     return (
       <App
@@ -120,7 +123,8 @@ class AppContainer extends Component {
         eventData={eventData}
         authed={this.state.authed}
         loading={this.state.loading}
-        eventNumber={eventNumber}
+        eventNumber={sceneNumber}
+        roundNumber={roundNumber}
         />
     );
   }

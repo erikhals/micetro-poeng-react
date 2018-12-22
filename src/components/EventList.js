@@ -8,6 +8,7 @@ const Container = styled.ul`
   grid-column: 2;
   list-style: none;
   padding-left: 0px;
+  margin: 0;
   background-color: #dddddd;
 `
 
