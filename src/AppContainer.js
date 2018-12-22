@@ -10,6 +10,7 @@ class AppContainer extends Component {
     this.state = {
       players: [],
       events: [],
+      playerPoints: [],
       email: "erik@xvision.no",
       authed: false,
       loading: true
@@ -48,23 +49,27 @@ class AppContainer extends Component {
     firebase.database().ref("state/events").on("value", snap =>{
       const ev = []
       const pPoints = []
-
       snap.forEach((evsnap)=>{
         const item = evsnap.val()
         item.key = evsnap.key
         ev.push(item)
-        // Add points to players
-        for(let i=0; i < item.players.length; i+=1){
-          const plkey = pPoints.filter(pl => pl.key === item.players[i])
-          if(plkey.length < 1){
-            const player = {key: item.players[i]}
-            player.points = Number(item.points)
-            pPoints.push(player)
-          }else{
-            plkey[0].points += item.points
+
+        // Add points to players, mutating the pPoints array
+        if(item.players){
+          for(let i=0; i < item.players.length; i+=1){
+            const plkey = pPoints.filter(pl => pl.key === item.players[i])
+            if(plkey.length < 1){
+              const player = {key: item.players[i], points: Number(item.points)}
+              pPoints.push(player)
+            }else{
+              plkey[0].points += item.points
+            }
           }
         }
       })
+
+      pPoints.sort((a,b) => b.points - a.points)
+
       if(ev){this.setState(
         {events: ev,
         playerPoints: pPoints}
@@ -79,6 +84,7 @@ class AppContainer extends Component {
   render() {
     const eventNumber = this.state.events.length + 1
     const playerData = this.state.players
+    const playerPoints = this.state.playerPoints
     const playerList = []
     for (let i = 0; i < playerData.length; i+=1){
       playerList.push(playerData[i].key)
@@ -98,13 +104,19 @@ class AppContainer extends Component {
     const roundplayers = playerList.filter(player =>  eliminated.indexOf(player) === -1)
     const bench = roundplayers.filter(player => played.indexOf(player) === -1)
     const benchData = [].concat(...bench.map(player => playerData.filter(data => data.key === player)))
+    const playedData = played.map(player => {
+      const nName = playerData.find(nm => nm.key === player)
+      const nPoints = playerPoints.find(pts => pts.key === player)
+      return {"key": player, "points": nPoints.points, "name": nName.name, "number": nName.number}
+    })
+    playedData.sort((a,b)=> b.points - a.points)
 
     return (
       <App
         playerData={playerData}
         playerPoints={this.state.playerPoints}
         bench = {benchData}
-        played = {played}
+        played = {playedData}
         eventData={eventData}
         authed={this.state.authed}
         loading={this.state.loading}

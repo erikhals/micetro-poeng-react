@@ -51,12 +51,13 @@ class EliminationContainer extends Component {
   }
 
   render() {
-    const submitDisabled = this.state.marked.length < 1 || this.state.marked.length === this.props.players.length
+    // const submitDisabled = this.state.marked.length < 1 || this.state.marked.length === this.props.players.length
     return (
       <Elimination
-        submitDisabled={submitDisabled}
+        // submitDisabled={submitDisabled}
         players={this.props.players}
         playerData={this.props.playerData}
+        playerPoints={this.props.playerPoints}
         submitElimination={this.submitElimination}
         markPlayer={this.markPlayer}
       />
@@ -67,7 +68,9 @@ class EliminationContainer extends Component {
 EliminationContainer.propTypes = {
   players: PropTypes.arrayOf(PropTypes.any).isRequired,
   playerData: PropTypes.arrayOf(PropTypes.any).isRequired,
+  playerPoints: PropTypes.arrayOf(PropTypes.any).isRequired,
   eventNumber: PropTypes.number.isRequired
+
 };
 
 export default EliminationContainer;
