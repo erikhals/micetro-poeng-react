@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, {ThemeProvider} from 'styled-components'
+import styled from 'styled-components'
 
-import {GlobalStyle, theme} from './components/GlobalStyles'
 import Navbar from './components/Navbar'
 import PlayerNames from './components/PlayerNames'
 import EventList from './components/EventList'

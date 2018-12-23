@@ -11,7 +11,7 @@ const NavbarWrapper = styled.div`
   @media(max-width: 875px){
     grid-template-columns: 10px 1fr 10px;
   }
-  background-color: #227B9B;
+  background-color: ${props => props.theme.primary};
   position: fixed;
   top: 0;
   width: 100%;
