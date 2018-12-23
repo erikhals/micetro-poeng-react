@@ -1,7 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import * as firebase from 'firebase'
+import {ThemeProvider} from 'styled-components'
 
+import { GlobalStyle, theme } from './components/GlobalStyles'
 import AppContainer from './AppContainer'
 
 const config = {
@@ -15,6 +17,11 @@ const config = {
 firebase.initializeApp(config)
 
 ReactDOM.render(
-  <AppContainer />,
+  <ThemeProvider theme={theme}>
+    <React.Fragment>
+      <AppContainer />
+      <GlobalStyle/>
+    </React.Fragment>
+  </ThemeProvider>,
   document.getElementById('root')
 );

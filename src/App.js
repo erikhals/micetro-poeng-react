@@ -58,20 +58,15 @@ const App = (props) => {
   }
 
   return(
-    <React.Fragment>
-      <GlobalStyle/>
-      <ThemeProvider theme={theme}>
-        <Outer>
-          <Navbar authed={props.authed}/>
-          {loginComp}
-          {nameComp}
-          <EventList events={props.eventData} playerData={props.playerData}/>
-          {newSceneComp}
-          {elimComp}
-          {endMessage}
-        </Outer>
-      </ThemeProvider>
-    </React.Fragment>
+    <Outer>
+      <Navbar authed={props.authed}/>
+      {loginComp}
+      {nameComp}
+      <EventList events={props.eventData} playerData={props.playerData}/>
+      {newSceneComp}
+      {elimComp}
+      {endMessage}
+    </Outer>
   );
 
 }

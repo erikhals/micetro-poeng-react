@@ -18,9 +18,7 @@ const NavbarWrapper = styled.div`
   height: 35px;
 `
 
-const ResetButton = styled.button`
-
-`
+// const ResetButton = styled.button``
 
 const Navbar = props => {
   const resetState = () => {
