@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import * as firebase from 'firebase'
 import {ThemeProvider} from 'styled-components'
 
-import { GlobalStyle, theme } from './components/GlobalStyles'
+import { GlobalStyle, theme } from './style'
 import AppContainer from './AppContainer'
 
 const config = {
