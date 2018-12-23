@@ -11,6 +11,7 @@ import EliminationContainer from './components/EliminationContainer'
 import LoadingDots from './components/LoadingDots'
 // import LoginPage from './components/LoginPage'
 
+/* eslint no-unused-expressions: 0 */
 injectGlobal`
   @import url('https://fonts.googleapis.com/css?family=Cairo');
   body{
