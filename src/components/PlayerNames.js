@@ -37,25 +37,28 @@ const PlayerNames = () => {
   const submitNames = (event) => {
     event.preventDefault()
     const dbref = firebase.database().ref("state/players")
-    for (let i = 1, j = numberPlayers + 1; i < j; i += 1 ){
+    for (let i = 1, j = numberPlayers + 1; i < j; i += 1) {
       const playername = event.target.elements[`playername${i}`].value
-      const player = {number: i, name: playername}
+      const player = { number: i, name: playername }
       dbref.push(player)
     }
   }
 
   const nameInputs = []
 
-  for (let i = 1, j = numberPlayers + 1; i < j; i += 1){
-    nameInputs.push(<NameListItem key={i}><PlayerNumber>{i}.</PlayerNumber> <Input type="text" name={`playername${i}`} placeholder="Name"/></NameListItem>)
+  for (let i = 1, j = numberPlayers + 1; i < j; i += 1) {
+    nameInputs.push(<NameListItem key={i}>
+      <PlayerNumber>{i}.</PlayerNumber> 
+      <Input type="text" name={`playername${i}`} placeholder="Name" />
+      </NameListItem>)
   }
   return (
     <PlayerNamesWrapper>
-    <form onSubmit={submitNames}>
-    {nameInputs}
-    <button type="submit">Submit names</button>
-    </form>
-  </PlayerNamesWrapper>
+      <form onSubmit={submitNames}>
+        {nameInputs}
+        <button type="submit">Submit names</button>
+      </form>
+    </PlayerNamesWrapper>
   )
 };
 

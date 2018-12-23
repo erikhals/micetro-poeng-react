@@ -23,13 +23,14 @@ const Login = () => {
   }
 
 
-  return(
-  <LoginWrapper>
-    <form onSubmit={login}>
-    <input type="password" name="password" placeholder="Password"/>
-    <button type="submit">Login</button>
-    </form>
-  </LoginWrapper>
-)};
+  return (
+    <LoginWrapper>
+      <form onSubmit={login}>
+        <input type="password" name="password" placeholder="Password" />
+        <button type="submit">Login</button>
+      </form>
+    </LoginWrapper>
+  )
+};
 
 export default Login;

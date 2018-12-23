@@ -25,9 +25,9 @@ const Navbar = props => {
     const stateRef = firebase.database().ref("state")
     stateRef.remove()
   }
-  const undoLast= () => {
-    firebase.database().ref("state/events").orderByChild("events").limitToLast(1).once('child_added').then((snap)=>{
-        snap.ref.remove()
+  const undoLast = () => {
+    firebase.database().ref("state/events").orderByChild("events").limitToLast(1).once('child_added').then((snap) => {
+      snap.ref.remove()
     })
   }
   const logOut = () => {
@@ -38,16 +38,16 @@ const Navbar = props => {
     })
   }
 
-  return(
-  <NavbarWrapper>
-    {props.authed 
-      ? <React.Fragment>
+  return (
+    <NavbarWrapper>
+      {props.authed
+        ? <React.Fragment>
           <button onClick={resetState}>Reset</button>
           <button onClick={undoLast}>Undo</button>
           <button onClick={logOut}>Log out</button>
         </React.Fragment>
-      : <Login/>}
-  </NavbarWrapper>
+        : <Login />}
+    </NavbarWrapper>
   )
 };
 

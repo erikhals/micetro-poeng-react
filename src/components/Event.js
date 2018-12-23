@@ -72,17 +72,20 @@ const Event = (props) => {
   const scenePoints = props.event.points !== 0 ? <ScenePoints>{props.event.points}p.</ScenePoints> : ""
   const name = props.event.name
   let players = "Alle videre"
-  if (props.event.players) {players = props.event.players.map(player => {
-    const pData = props.playerData.find(playerD => playerD.key === player)
-    return(<PlayerChip key={player} id={pData.number} number={pData.number} name={pData.name} clickable={false}/>)
-  }) }
-return(
-  <EventWrapper>
-    <EventHeader>{number} <SceneName> {name} </SceneName> {rNumber} {scenePoints}</EventHeader>
-    <PlayerList>{players}</PlayerList>
-    <HorizontalLine/>
-  </EventWrapper>
-)}
+  if (props.event.players) {
+    players = props.event.players.map(player => {
+      const pData = props.playerData.find(playerD => playerD.key === player)
+      return (<PlayerChip key={player} id={pData.number} number={pData.number} name={pData.name} clickable={false} />)
+    })
+  }
+  return (
+    <EventWrapper>
+      <EventHeader>{number} <SceneName> {name} </SceneName> {rNumber} {scenePoints}</EventHeader>
+      <PlayerList>{players}</PlayerList>
+      <HorizontalLine />
+    </EventWrapper>
+  )
+}
 
 Event.propTypes = {
   event: PropTypes.objectOf(PropTypes.any).isRequired,

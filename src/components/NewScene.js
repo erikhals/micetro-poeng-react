@@ -64,11 +64,11 @@ const Button = styled.button`
 
 const NewScene = (props) => {
 
-  const benchNode = props.bench.map((player, index) => <PlayerChip key={player.number} number={player.number} name={player.name} id={index} handleSwitch={props.playerToStage}/>)
-  const stageNode = props.stage.map((player, index) => <PlayerChip key={player.number} number={player.number} name={player.name} id={index} handleSwitch={props.playerToBench}/>)
+  const benchNode = props.bench.map((player, index) => <PlayerChip key={player.number} number={player.number} name={player.name} id={index} handleSwitch={props.playerToStage} />)
+  const stageNode = props.stage.map((player, index) => <PlayerChip key={player.number} number={player.number} name={player.name} id={index} handleSwitch={props.playerToBench} />)
   const pointRadios = () => {
     const radios = []
-    for(let i=1; i<6; i+=1){
+    for (let i = 1; i < 6; i += 1) {
       radios.push(<div key={i}><PointsRadio type="radio" name="points" id={`point${i}`} value={i} onChange={props.setPoints} /> <PointsLabel htmlFor={`point${i}`}>{i}p</PointsLabel> </div>)
     }
     return radios
@@ -78,7 +78,7 @@ const NewScene = (props) => {
     <NewSceneWrapper>
       <div>New Scene</div>
       <form onSubmit={props.submitScene}>
-        <SceneNameInput type="text" name="scenename" placeholder="Scenename"/>
+        <SceneNameInput type="text" name="scenename" placeholder="Scenename" />
         <PointsWrapper>Points: {pointRadios()}</PointsWrapper>
         <PlayersWrapper>Players: {stageNode}</PlayersWrapper>
         <Button type="submit" disabled={(props.points < 1 || props.stage.length < 1)}>Save scene</Button>

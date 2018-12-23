@@ -63,8 +63,8 @@ const Points = styled.div`
 
 const Elimination = (props) => {
 
-  const benchNode = props.players.map(player => 
-    (<Toggle key={player.key}><input value={false} type="checkbox" name={`point${player.key}`} id={player.key} onChange={props.markPlayer}/><label key={player.key} htmlFor={player.key}><Number>{player.number}</Number> <Name>{player.name}</Name> <Points>{player.points}</Points></label></Toggle>)
+  const benchNode = props.players.map(player =>
+    (<Toggle key={player.key}><input value={false} type="checkbox" name={`point${player.key}`} id={player.key} onChange={props.markPlayer} /><label key={player.key} htmlFor={player.key}><Number>{player.number}</Number> <Name>{player.name}</Name> <Points>{player.points}</Points></label></Toggle>)
   )
 
   return (

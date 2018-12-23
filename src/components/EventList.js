@@ -14,7 +14,7 @@ const Container = styled.ul`
 
 const EventList = props => {
   const eventNode = props.events.map(event => <Event event={event} key={event.key} playerData={props.playerData} />)
-return (<Container>{eventNode}</Container>)
+  return (<Container>{eventNode}</Container>)
 }
 
 EventList.propTypes = {

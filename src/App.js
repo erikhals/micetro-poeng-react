@@ -40,28 +40,28 @@ const App = (props) => {
 
   // sort players
   // mount components based on sorted players
-  if(props.loading === true){
-    loginComp = <LoadingDots/>
-  }else if(props.authed === false){
+  if (props.loading === true) {
+    loginComp = <LoadingDots />
+  } else if (props.authed === false) {
     endMessage = "Your are not currently logged in."
-  }else if (props.playerData.length < 1){
-    nameComp = <PlayerNames/>
-  }else if (props.bench.length === 1 && props.played.length === 0){
+  } else if (props.playerData.length < 1) {
+    nameComp = <PlayerNames />
+  } else if (props.bench.length === 1 && props.played.length === 0) {
     endMessage = <ShowEnded>The show has ended, the winner is {props.bench[0].number}</ShowEnded>
-  }else if (props.bench.length > 0){
-    newSceneComp = <NewSceneContainer key={props.eventNumber} bench={props.bench} players={props.playerData} eventNumber={props.eventNumber}/>
-  }else if (props.played.length > 1){
-    elimComp = <EliminationContainer players={props.played} playerData={props.playerData} playerPoints={props.playerPoints} eventNumber={props.roundNumber}/>
-  }else{
+  } else if (props.bench.length > 0) {
+    newSceneComp = <NewSceneContainer key={props.eventNumber} bench={props.bench} players={props.playerData} eventNumber={props.eventNumber} />
+  } else if (props.played.length > 1) {
+    elimComp = <EliminationContainer players={props.played} playerData={props.playerData} playerPoints={props.playerPoints} eventNumber={props.roundNumber} />
+  } else {
     endMessage = "Error"
   }
 
-  return(
+  return (
     <Outer>
-      <Navbar authed={props.authed}/>
+      <Navbar authed={props.authed} />
       {loginComp}
       {nameComp}
-      <EventList events={props.eventData} playerData={props.playerData}/>
+      <EventList events={props.eventData} playerData={props.playerData} />
       {newSceneComp}
       {elimComp}
       {endMessage}

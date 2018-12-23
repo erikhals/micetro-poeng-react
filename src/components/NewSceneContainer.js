@@ -5,9 +5,9 @@ import * as firebase from 'firebase'
 import NewScene from './NewScene'
 
 class NewSceneContainer extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
-    this.state={
+    this.state = {
       bench: props.bench,
       stage: [],
       points: 0
@@ -17,7 +17,7 @@ class NewSceneContainer extends Component {
   setPoints = (e) => {
     const sPoints = Number(e.target.value)
     this.setState(
-      {points: sPoints}
+      { points: sPoints }
     )
   }
 
@@ -26,7 +26,7 @@ class NewSceneContainer extends Component {
     const player = fromBench.splice(playerindex, 1)[0]
     const toStage = Array.from(this.state.stage)
     toStage.push(player)
-    toStage.sort((a,b) =>  a.number - b.number);
+    toStage.sort((a, b) => a.number - b.number);
     this.setState({
       bench: fromBench,
       stage: toStage
@@ -38,7 +38,7 @@ class NewSceneContainer extends Component {
     const player = fromStage.splice(playerindex, 1)[0]
     const toBench = Array.from(this.state.bench)
     toBench.push(player)
-    toBench.sort((a,b) =>  a.number - b.number);
+    toBench.sort((a, b) => a.number - b.number);
     this.setState({
       bench: toBench,
       stage: fromStage
@@ -51,7 +51,7 @@ class NewSceneContainer extends Component {
     const sceneName = event.target.elements.scenename.value
     const scenePlayers = [].concat(...this.state.stage.map(player => player.key))
     const scenePoints = Number(event.target.elements.points.value)
-    const scene = {number: sceneNumber, name: sceneName, players: scenePlayers, points: scenePoints}
+    const scene = { number: sceneNumber, name: sceneName, players: scenePlayers, points: scenePoints }
     const eventRef = firebase.database().ref("state/events")
     eventRef.push(scene)
   }

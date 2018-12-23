@@ -34,7 +34,7 @@ const PlayerChip = (props) => {
     props.handleSwitch(props.id)
   }
 
-  return(
+  return (
     <ChipWrapper onClick={handleClick} clickable={props.clickable}><ChipIcon>{props.number}</ChipIcon> {props.name}</ChipWrapper>
   )
 };
@@ -48,7 +48,7 @@ PlayerChip.propTypes = {
 };
 
 PlayerChip.defaultProps = {
-  handleSwitch: () => {},
+  handleSwitch: () => { },
   clickable: true
 }
 

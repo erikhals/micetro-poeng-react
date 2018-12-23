@@ -5,9 +5,9 @@ import * as firebase from 'firebase'
 import Elimination from './Elimination'
 
 class EliminationContainer extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
-    this.state={
+    this.state = {
       marked: []
     }
   }
@@ -15,9 +15,9 @@ class EliminationContainer extends Component {
   markPlayer = (player) => {
     const playerindex = player.target.id
     let markedPlayers = this.state.marked
-    if (player.target.checked === true){
+    if (player.target.checked === true) {
       markedPlayers.push(playerindex)
-    }else{
+    } else {
       markedPlayers = markedPlayers.filter(playing => playing !== playerindex)
     }
     this.setState({
@@ -28,7 +28,7 @@ class EliminationContainer extends Component {
   saveButtonActive = () => {
     let active = true
     const marked = this.state.marked
-    if (marked.length !== 0){
+    if (marked.length !== 0) {
       active = false
     }
     return active
