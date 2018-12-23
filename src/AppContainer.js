@@ -108,8 +108,7 @@ class AppContainer extends Component {
       const nName = playerData.find(nm => nm.key === player)
       const nPoints = playerPoints.find(pts => pts.key === player)
       return {"key": player, "points": nPoints.points, "name": nName.name, "number": nName.number}
-    })
-    playedData.sort((a,b)=> b.points - a.points)
+    }).sort((a,b)=> b.points - a.points)
     const sceneNumber = this.state.events.length + 1 - eliminations.length
     const roundNumber = eliminations ? eliminations.length + 1 : 1
 

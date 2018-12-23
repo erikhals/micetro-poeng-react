@@ -1,9 +1,16 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import * as firebase from 'firebase'
 import styled from 'styled-components'
+import Login from './Login'
 
 const NavbarWrapper = styled.div`
   overflow: hidden;
+  display: flex;
+  grid-template-columns: 1fr 2fr 1fr;
+  @media(max-width: 875px){
+    grid-template-columns: 10px 1fr 10px;
+  }
   background-color: #227B9B;
   position: fixed;
   top: 0;
@@ -11,7 +18,11 @@ const NavbarWrapper = styled.div`
   height: 35px;
 `
 
-const Navbar = () => {
+const ResetButton = styled.button`
+
+`
+
+const Navbar = props => {
   const resetState = () => {
     const stateRef = firebase.database().ref("state")
     stateRef.remove()
@@ -31,11 +42,23 @@ const Navbar = () => {
 
   return(
   <NavbarWrapper>
-    <button onClick={resetState}>Reset</button>
-    <button onClick={undoLast}>Undo</button>
-    <button onClick={logOut}>Log out</button>
+    {props.authed 
+      ? <React.Fragment>
+          <button onClick={resetState}>Reset</button>
+          <button onClick={undoLast}>Undo</button>
+          <button onClick={logOut}>Log out</button>
+        </React.Fragment>
+      : <Login/>}
   </NavbarWrapper>
   )
 };
+
+Navbar.propTypes = {
+  authed: PropTypes.bool
+}
+
+Navbar.defaultProps = {
+  authed: false,
+}
 
 export default Navbar;

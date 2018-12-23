@@ -12,7 +12,7 @@ const NewSceneWrapper = styled.div`
 `
 const SceneNameInput = styled.input`
   padding: 8px 8px;
-  font-size: 1em
+  font-size: 1em;
 `
 const PointsWrapper = styled.div`
   display: flex;

@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { injectGlobal } from 'styled-components'
+import styled, {ThemeProvider} from 'styled-components'
 
+import {GlobalStyle, theme} from './components/GlobalStyles'
 import Navbar from './components/Navbar'
-import LoginPage from './components/LoginPage'
 import PlayerNames from './components/PlayerNames'
 import EventList from './components/EventList'
 import NewSceneContainer from './components/NewSceneContainer'
@@ -12,15 +12,7 @@ import LoadingDots from './components/LoadingDots'
 // import LoginPage from './components/LoginPage'
 
 /* eslint no-unused-expressions: 0 */
-injectGlobal`
-  @import url('https://fonts.googleapis.com/css?family=Cairo');
-  body{
-    padding: 0;
-    margin: 0;
-    font-family: "Cairo", sans-serif;
-    background-color: #333333;
-  }
-`
+
 
 const Outer = styled.div`
   display: grid;
@@ -41,18 +33,18 @@ const ShowEnded = styled.div`
 const App = (props) => {
 
   // declare empty components
-  let loginComp = ""
-  let nameComp = ""
-  let elimComp = ""
-  let newSceneComp = ""
-  let endMessage = ""
+  let loginComp = null
+  let nameComp = null
+  let elimComp = null
+  let newSceneComp = null
+  let endMessage = null
 
   // sort players
   // mount components based on sorted players
   if(props.loading === true){
     loginComp = <LoadingDots/>
   }else if(props.authed === false){
-    loginComp = <LoginPage/>
+    endMessage = "Your are not currently logged in."
   }else if (props.playerData.length < 1){
     nameComp = <PlayerNames/>
   }else if (props.bench.length === 1 && props.played.length === 0){
@@ -66,15 +58,20 @@ const App = (props) => {
   }
 
   return(
-  <Outer>
-    <Navbar/>
-    {loginComp}
-    {nameComp}
-    <EventList events={props.eventData} playerData={props.playerData}/>
-    {newSceneComp}
-    {elimComp}
-    {endMessage}
-  </Outer>
+    <React.Fragment>
+      <GlobalStyle/>
+      <ThemeProvider theme={theme}>
+        <Outer>
+          <Navbar authed={props.authed}/>
+          {loginComp}
+          {nameComp}
+          <EventList events={props.eventData} playerData={props.playerData}/>
+          {newSceneComp}
+          {elimComp}
+          {endMessage}
+        </Outer>
+      </ThemeProvider>
+    </React.Fragment>
   );
 
 }

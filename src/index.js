@@ -14,8 +14,6 @@ const config = {
   }
 firebase.initializeApp(config)
 
-
-
 ReactDOM.render(
   <AppContainer />,
   document.getElementById('root')

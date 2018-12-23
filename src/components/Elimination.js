@@ -17,10 +17,10 @@ const List = styled.div`
 `
 const Toggle = styled.div`
   display: flex;
- 
   cursor: pointer;
   > input { 
-    opacity: 0; position: absolute;
+    opacity: 0; 
+    position: absolute;
     }
   > input + label {
     display: flex;
