@@ -8,6 +8,7 @@ import PlayerNames from './components/PlayerNames'
 import EventList from './components/EventList'
 import NewSceneContainer from './components/NewSceneContainer'
 import EliminationContainer from './components/EliminationContainer'
+import LoadingDots from './components/LoadingDots'
 // import LoginPage from './components/LoginPage'
 
 injectGlobal`
@@ -29,6 +30,13 @@ const Outer = styled.div`
   }
 `
 
+const ShowEnded = styled.div`
+  grid-column: 2;
+  padding: 16px;
+  background-color: #414141;
+  color: #FFFFFF;
+`
+
 const App = (props) => {
 
   // declare empty components
@@ -41,13 +49,13 @@ const App = (props) => {
   // sort players
   // mount components based on sorted players
   if(props.loading === true){
-    loginComp = <div>Loading</div>
+    loginComp = <LoadingDots/>
   }else if(props.authed === false){
     loginComp = <LoginPage/>
   }else if (props.playerData.length < 1){
     nameComp = <PlayerNames/>
   }else if (props.bench.length === 1 && props.played.length === 0){
-    endMessage = `The show has ended, the winner is ${props.bench[0].number}`
+    endMessage = <ShowEnded>The show has ended, the winner is {props.bench[0].number}</ShowEnded>
   }else if (props.bench.length > 0){
     newSceneComp = <NewSceneContainer key={props.eventNumber} bench={props.bench} players={props.playerData} eventNumber={props.eventNumber}/>
   }else if (props.played.length > 1){

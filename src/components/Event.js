@@ -55,6 +55,7 @@ const PlayerList = styled.ul`
   padding-left: 0px;
   clear: left;
   display: flex;
+  flex-wrap: wrap;
 `
 const HorizontalLine = styled.hr`
   display: block;
@@ -62,7 +63,7 @@ const HorizontalLine = styled.hr`
   border: 0;
   border-bottom: 1px solid #ccc;
   margin: 0 0 0 0;
-  padding-bottom: 16px;
+  padding-bottom: 8px;
 `
 
 const Event = (props) => {

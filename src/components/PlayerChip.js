@@ -9,7 +9,7 @@ const ChipWrapper = styled.div`
   background: #FFDF72;
   color: #000000;
   height: 32px;
-  margin: 0 5px 0 0;
+  margin: 0 8px 8px 0;
   padding: 0 12px;
   border-radius: 32px;
   font-size: 13px;
