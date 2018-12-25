@@ -5,15 +5,15 @@ import styled from 'styled-components';
 import PlayerChip from './PlayerChip'
 
 const EventWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1 100%;
-  background-color: #1F1F1F;
+  display: grid;
+  grid-template: auto auto / auto auto;
+  background-color: ${props => props.theme.backgroundDark};
   color: #F5F5F5;
   padding: 16px 16px 0 16px;
   margins: 0px;
 `
 const EventHeader = styled.div`
+  grid-area: 1 / 1;
   display: flex;
 `
 
@@ -40,8 +40,11 @@ const SceneName = styled.div`
   flex-grow: 1;
 `
 const ScenePoints = styled.div`
-  float: right;
-  background: #227B9B;
+  grid-column: 2;
+  grid-row: 1 / 3;
+  justify-self: right;
+  align-self: center;
+  background: ${props => props.theme.secondary};
   width: 46px;
   height: 46px;
   line-height: 46px;
@@ -58,6 +61,7 @@ const PlayerList = styled.ul`
   flex-wrap: wrap;
 `
 const HorizontalLine = styled.hr`
+  grid-column: 1 / 3;
   display: block;
   height: 1px;
   border: 0;
@@ -80,8 +84,9 @@ const Event = (props) => {
   }
   return (
     <EventWrapper>
-      <EventHeader>{number} <SceneName> {name} </SceneName> {rNumber} {scenePoints}</EventHeader>
+      <EventHeader>{number} <SceneName> {name} </SceneName> {rNumber} </EventHeader>
       <PlayerList>{players}</PlayerList>
+      {scenePoints}
       <HorizontalLine />
     </EventWrapper>
   )

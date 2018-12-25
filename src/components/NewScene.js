@@ -1,14 +1,15 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import React from "react"
+import PropTypes from "prop-types"
+import styled from "styled-components"
+import {ButtonStyles} from "../style"
 
-import PlayerChip from './PlayerChip'
+import PlayerChip from "./PlayerChip"
 
 const NewSceneWrapper = styled.div`
   grid-column: 2;
   padding: 16px;
-  background-color: #414141;
-  color: #FFFFFF;
+  background-color: ${props => props.theme.backgroundLight};
+  color: #ffffff;
 `
 const SceneNameInput = styled.input`
   padding: 8px 8px;
@@ -24,7 +25,7 @@ const PointsLabel = styled.label`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: purple;
+  background: ${props => props.theme.backgroundDark};
   width: 46px;
   height: 46px;
   border-radius: 50%;
@@ -35,7 +36,7 @@ const PointsRadio = styled.input`
   position: absolute;
   opacity: 0;
   &:checked + ${PointsLabel} {
-    background: #227B9B;
+    background: ${props => props.theme.secondary};
   }
 `
 const PlayersWrapper = styled.div`
@@ -50,26 +51,47 @@ const BenchWrapper = styled.div`
 `
 
 const Button = styled.button`
-  padding: 8px;
-  border-radius: 5px;
-  cursor: pointer;
-  background: white;
-  font-size: 1em;
+  ${ButtonStyles}
   &:disabled {
     background: silver;
-    cursor: auto;
+    cursor: default;
   }
 `
 
-
-const NewScene = (props) => {
-
-  const benchNode = props.bench.map((player, index) => <PlayerChip key={player.number} number={player.number} name={player.name} id={index} handleSwitch={props.playerToStage} />)
-  const stageNode = props.stage.map((player, index) => <PlayerChip key={player.number} number={player.number} name={player.name} id={index} handleSwitch={props.playerToBench} />)
+const NewScene = props => {
+  const benchNode = props.bench.map((player, index) => (
+    <PlayerChip
+      key={player.number}
+      number={player.number}
+      name={player.name}
+      id={index}
+      handleSwitch={props.playerToStage}
+    />
+  ))
+  const stageNode = props.stage.map((player, index) => (
+    <PlayerChip
+      key={player.number}
+      number={player.number}
+      name={player.name}
+      id={index}
+      handleSwitch={props.playerToBench}
+    />
+  ))
   const pointRadios = () => {
     const radios = []
     for (let i = 1; i < 6; i += 1) {
-      radios.push(<div key={i}><PointsRadio type="radio" name="points" id={`point${i}`} value={i} onChange={props.setPoints} /> <PointsLabel htmlFor={`point${i}`}>{i}p</PointsLabel> </div>)
+      radios.push(
+        <div key={i}>
+          <PointsRadio
+            type="radio"
+            name="points"
+            id={`point${i}`}
+            value={i}
+            onChange={props.setPoints}
+          />{" "}
+          <PointsLabel htmlFor={`point${i}`}>{i}p</PointsLabel>{" "}
+        </div>
+      )
     }
     return radios
   }
@@ -81,7 +103,12 @@ const NewScene = (props) => {
         <SceneNameInput type="text" name="scenename" placeholder="Scenename" />
         <PointsWrapper>Points: {pointRadios()}</PointsWrapper>
         <PlayersWrapper>Players: {stageNode}</PlayersWrapper>
-        <Button type="submit" disabled={(props.points < 1 || props.stage.length < 1)}>Save scene</Button>
+        <Button
+          type="submit"
+          disabled={props.points < 1 || props.stage.length < 1}
+        >
+          Save scene
+        </Button>
         <BenchWrapper>Bench: {benchNode}</BenchWrapper>
       </form>
     </NewSceneWrapper>
@@ -99,7 +126,7 @@ NewScene.propTypes = {
 }
 
 NewScene.defaultProps = {
-  stage: [],
+  stage: []
 }
 
 export default NewScene

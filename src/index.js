@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import * as firebase from 'firebase'
 import { ThemeProvider } from 'styled-components'
 
-import { GlobalStyle, theme } from './style'
+import { GlobalStyle, darkTheme } from './style'
 import AppContainer from './AppContainer'
 
 const config = {
@@ -17,11 +17,11 @@ const config = {
 firebase.initializeApp(config)
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={darkTheme}>
     <React.Fragment>
       <AppContainer />
       <GlobalStyle />
     </React.Fragment>
   </ThemeProvider>,
   document.getElementById('root')
-);
+)

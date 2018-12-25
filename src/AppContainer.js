@@ -104,6 +104,7 @@ class AppContainer extends Component {
         lastround.push(eventData[i])
       }
     }
+    
     const played = [].concat(...lastround.map(event => event.players))
     const eliminations = eventData.filter(event => event.points === 0)
     const eliminated = [].concat(...eliminations.map(event => event.players))

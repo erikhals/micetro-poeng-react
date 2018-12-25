@@ -6,7 +6,7 @@ import Login from './Login'
 
 const NavbarWrapper = styled.div`
   overflow: hidden;
-  display: flex;
+  display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   @media(max-width: 875px){
     grid-template-columns: 10px 1fr 10px;
@@ -17,8 +17,24 @@ const NavbarWrapper = styled.div`
   width: 100%;
   height: 35px;
 `
+const FunctionButtons = styled.div`
+  grid-column: 2;
+  display: flex;
+  justify-content: space-between;
+`
 
-// const ResetButton = styled.button``
+const Button = styled.button`
+  color: #fff;
+  font-family: Cairo;
+  background-color: Transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+  text-decoration: none;
+`
+const RightButton = styled(Button)`
+  
+`
 
 const Navbar = props => {
   const resetState = () => {
@@ -41,11 +57,11 @@ const Navbar = props => {
   return (
     <NavbarWrapper>
       {props.authed
-        ? <React.Fragment>
-          <button onClick={resetState}>Reset</button>
-          <button onClick={undoLast}>Undo</button>
-          <button onClick={logOut}>Log out</button>
-        </React.Fragment>
+        ? <FunctionButtons>
+          <Button onClick={resetState}>Reset</Button>
+          <Button onClick={undoLast}>Undo</Button>
+          <RightButton onClick={logOut}>Log out</RightButton>
+        </FunctionButtons>
         : <Login />}
     </NavbarWrapper>
   )

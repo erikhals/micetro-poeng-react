@@ -51,7 +51,7 @@ const App = (props) => {
   } else if (props.bench.length > 0) {
     newSceneComp = <NewSceneContainer key={props.eventNumber} bench={props.bench} players={props.playerData} eventNumber={props.eventNumber} />
   } else if (props.played.length > 1) {
-    elimComp = <EliminationContainer players={props.played} playerData={props.playerData} playerPoints={props.playerPoints} eventNumber={props.roundNumber} />
+    elimComp = <EliminationContainer players={props.played} playerPoints={props.playerPoints} eventNumber={props.roundNumber} />
   } else {
     endMessage = "Error"
   }

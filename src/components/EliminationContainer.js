@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import * as firebase from 'firebase'
+import React, { Component } from "react"
+import PropTypes from "prop-types"
+import * as firebase from "firebase"
 
-import Elimination from './Elimination'
+import Elimination from "./Elimination"
 
 class EliminationContainer extends Component {
   constructor(props) {
@@ -12,14 +12,11 @@ class EliminationContainer extends Component {
     }
   }
 
-  markPlayer = (player) => {
-    const playerindex = player.target.id
-    let markedPlayers = this.state.marked
-    if (player.target.checked === true) {
-      markedPlayers.push(playerindex)
-    } else {
-      markedPlayers = markedPlayers.filter(playing => playing !== playerindex)
-    }
+  markPlayer = player => {
+    const points = player.target.getAttribute("datapoints")
+    const markedPlayers = this.props.players
+      .filter(item => (item.points <= points))
+      .map(item => item.key)
     this.setState({
       marked: markedPlayers
     })
@@ -34,31 +31,51 @@ class EliminationContainer extends Component {
     return active
   }
 
-  submitElimination = (event) => {
+  submitElimination = event => {
     event.preventDefault()
-    const no = this.props.eventNumber
-    const nm = "Elimination"
-    const markedplyrs = this.state.marked
-    const pnts = 0
     const elEvent = {
-      "number": no,
-      "name": nm,
-      "points": pnts,
-      "players": markedplyrs
+      number: this.props.eventNumber,
+      name: "Elimination",
+      points: 0,
+      players: this.state.marked
+    }
+    const evRef = firebase.database().ref("state/events")
+    evRef.push(elEvent)
+  }
+
+  continueAll = (event) => {
+    event.preventDefault()
+    const elEvent = {
+      number: this.props.eventNumber,
+      name: "Elimination",
+      points: 0,
+      players: []
     }
     const evRef = firebase.database().ref("state/events")
     evRef.push(elEvent)
   }
 
   render() {
-    // const submitDisabled = this.state.marked.length < 1 || this.state.marked.length === this.props.players.length
+    const playerData = this.props.players.map(player => {
+      const isMarked = this.state.marked.includes(player.key)
+      return {
+        key: player.key,
+        name: player.name,
+        number: player.number,
+        points: player.points,
+        marked: isMarked
+      }
+    })
+    const submitDisabled =
+      this.state.marked.length < 1 ||
+      this.state.marked.length === this.props.players.length
     return (
       <Elimination
-        // submitDisabled={submitDisabled}
-        players={this.props.players}
-        playerData={this.props.playerData}
+        submitDisabled={submitDisabled}
+        players={playerData}
         playerPoints={this.props.playerPoints}
         submitElimination={this.submitElimination}
+        continueAll={this.continueAll}
         markPlayer={this.markPlayer}
       />
     )
@@ -67,10 +84,8 @@ class EliminationContainer extends Component {
 
 EliminationContainer.propTypes = {
   players: PropTypes.arrayOf(PropTypes.any).isRequired,
-  playerData: PropTypes.arrayOf(PropTypes.any).isRequired,
   playerPoints: PropTypes.arrayOf(PropTypes.any).isRequired,
   eventNumber: PropTypes.number.isRequired
+}
 
-};
-
-export default EliminationContainer;
+export default EliminationContainer
