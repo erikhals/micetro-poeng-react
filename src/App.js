@@ -58,7 +58,7 @@ const App = (props) => {
 
   return (
     <Outer>
-      <Navbar authed={props.authed} />
+      <Navbar authed={props.authed} eventNumber={props.eventNumber}/>
       {loginComp}
       {nameComp}
       <EventList events={props.eventData} playerData={props.playerData} />

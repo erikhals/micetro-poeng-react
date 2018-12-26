@@ -7,18 +7,21 @@ const ChipWrapper = styled.div`
   justify-content: center;
   align-items: center;
   color: ${props => props.theme.text};
-  background: ${props => props.theme.primary};
+  background: ${props => props.secondary ? props.theme.secondary : props.theme.primary};
   height: 32px;
   margin: 0 8px 8px 0;
   padding: 0 12px;
   border-radius: 32px;
   font-size: 13px;
   cursor: ${props => props.clickable ? "pointer" : "auto"};
+  &.secondary {
+    background: ${props => props.theme.secondary};
+  }
 `
 const ChipIcon = styled.div`
   display: block;
   float: left;
-  background: ${props => props.theme.primaryDark};
+  background: ${props => props.secondary ? props.theme.secondaryDark : props.theme.primaryDark};
   width: 32px;
   height: 32px;
   line-height: 32px;
@@ -34,7 +37,7 @@ const PlayerChip = (props) => {
   }
 
   return (
-    <ChipWrapper onClick={handleClick} clickable={props.clickable}><ChipIcon>{props.number}</ChipIcon> {props.name}</ChipWrapper>
+    <ChipWrapper onClick={handleClick} clickable={props.clickable} secondary={props.secondary}><ChipIcon secondary={props.secondary}>{props.number}</ChipIcon> {props.name}</ChipWrapper>
   )
 };
 
@@ -43,12 +46,14 @@ PlayerChip.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   handleSwitch: PropTypes.func,
-  clickable: PropTypes.bool
+  clickable: PropTypes.bool,
+  secondary: PropTypes.bool
 };
 
 PlayerChip.defaultProps = {
   handleSwitch: () => { },
-  clickable: true
+  clickable: true,
+  secondary: false
 }
 
 export default PlayerChip;

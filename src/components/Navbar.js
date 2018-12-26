@@ -32,9 +32,6 @@ const Button = styled.button`
   font-size: 1em;
   text-decoration: none;
 `
-const RightButton = styled(Button)`
-  
-`
 
 const Navbar = props => {
   const resetState = () => {
@@ -48,10 +45,9 @@ const Navbar = props => {
   }
   const logOut = () => {
     firebase.auth().signOut().then(() => {
-      console.log("signed out")
-    }, (error) => {
-      console.log("error signing out", error)
-    })
+     
+    }, (error) => error
+    )
   }
 
   return (
@@ -59,8 +55,8 @@ const Navbar = props => {
       {props.authed
         ? <FunctionButtons>
           <Button onClick={resetState}>Reset</Button>
-          <Button onClick={undoLast}>Undo</Button>
-          <RightButton onClick={logOut}>Log out</RightButton>
+          <Button onClick={undoLast} disabled={(props.eventNumber <2 )}>Undo</Button>
+          <Button onClick={logOut}>Log out</Button>
         </FunctionButtons>
         : <Login />}
     </NavbarWrapper>
@@ -68,11 +64,12 @@ const Navbar = props => {
 };
 
 Navbar.propTypes = {
-  authed: PropTypes.bool
+  authed: PropTypes.bool.isRequired,
+  eventNumber: PropTypes.number
 }
 
 Navbar.defaultProps = {
-  authed: false,
+  eventNumber: 0
 }
 
 export default Navbar;
