@@ -33,4 +33,8 @@ export const ButtonStyles = css`
   background: ${darkTheme.third};
   font-size: 1em;
   text-decoration: none;
+  ${p => p.transparent &&`
+    color: #fff;
+    background: Transparent;
+  `}
 `

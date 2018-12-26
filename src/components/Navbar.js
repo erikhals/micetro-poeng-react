@@ -15,7 +15,7 @@ const NavbarWrapper = styled.div`
   position: fixed;
   top: 0;
   width: 100%;
-  height: 35px;
+  height: 3em;
 `
 const FunctionButtons = styled.div`
   grid-column: 2;

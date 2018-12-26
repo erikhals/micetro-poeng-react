@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import styled from "styled-components"
 import { ButtonStyles } from "../style"
 
-const Container = styled.div`
+const EliminationForm = styled.form`
   grid-column: 2;
   padding: 16px;
   background-color: #414141;
@@ -61,17 +61,19 @@ const Points = styled.div`
   margin: 0 5px;
 `
 const EliminationButton = styled.button`
-  ${ButtonStyles};´
+  ${ButtonStyles};
+  margin: 0.5em;
+  width: 40%;
 `
 const ContinueButton = styled.button`
   ${ButtonStyles};
+  margin: 0.5em;
+  width: 40%;
+  float: right;
 `
 
 const Elimination = props => {
-  const benchNode = props.players.map(player => 
-    { 
-      const checked = player.marked
-    return (
+  const benchNode = props.players.map(player =>  
       <Toggle key={player.key}>
       <input
         value={false}
@@ -80,26 +82,24 @@ const Elimination = props => {
         id={player.key}
         onChange={props.markPlayer}
         datapoints={player.points}
-        checked={checked}
+        checked={player.marked}
       />
       <label key={player.key} htmlFor={player.key}>
         <Number>{player.number}</Number> <Name>{player.name}</Name>{" "}
         <Points>{player.points}</Points>
       </label>
-      </Toggle>)}
+      </Toggle>
     )
 
   return (
-    <Container>
+    <EliminationForm onSubmit={props.submitElimination}>
       <div>Elimination</div>
-      <form onSubmit={props.submitElimination}>
         <div>
           Eliminate: <List>{benchNode}</List>
         </div>
         <EliminationButton type="submit" disabled={props.submitDisabled}>Eliminate</EliminationButton>
         <ContinueButton type="reset" onClick={props.continueAll}>Continue all</ContinueButton>
-      </form>
-    </Container>
+    </EliminationForm>
   )
 }
 

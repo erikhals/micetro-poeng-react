@@ -5,15 +5,17 @@ import {ButtonStyles} from "../style"
 
 import PlayerChip from "./PlayerChip"
 
-const NewSceneWrapper = styled.div`
+const NewSceneForm = styled.form`
   grid-column: 2;
   padding: 16px;
   background-color: ${props => props.theme.backgroundLight};
   color: #ffffff;
+
 `
 const SceneNameInput = styled.input`
   padding: 8px 8px;
   font-size: 1em;
+  width: 100%;
 `
 const PointsWrapper = styled.div`
   display: flex;
@@ -52,6 +54,7 @@ const BenchWrapper = styled.div`
 
 const Button = styled.button`
   ${ButtonStyles}
+  width: 100%;
   &:disabled {
     background: silver;
     cursor: default;
@@ -97,9 +100,8 @@ const NewScene = props => {
   }
 
   return (
-    <NewSceneWrapper>
+    <NewSceneForm onSubmit={props.submitScene}>
       <div>New Scene</div>
-      <form onSubmit={props.submitScene}>
         <SceneNameInput type="text" name="scenename" placeholder="Scenename" />
         <PointsWrapper>Points: {pointRadios()}</PointsWrapper>
         <PlayersWrapper>Players: {stageNode}</PlayersWrapper>
@@ -110,8 +112,7 @@ const NewScene = props => {
           Save scene
         </Button>
         <BenchWrapper>Bench: {benchNode}</BenchWrapper>
-      </form>
-    </NewSceneWrapper>
+    </NewSceneForm>
   )
 }
 

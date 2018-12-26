@@ -2,33 +2,49 @@ import React from 'react';
 import * as firebase from 'firebase'
 import styled from 'styled-components'
 
-const PlayerNamesWrapper = styled.div`
+import {ButtonStyles} from '../style'
+
+const PlayerNamesWrapper = styled.form`
   grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   color: #FFFFFF;
+  > * { 
+    &:first-child {
+      margin-top: 1em;
+    }
+  }  
+`
+const NameListItem = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0.2em;
 `
 const PlayerNumber = styled.div`
-  float: left;
-  background: #227B9B;
+  background: ${props => props.theme.primary};
   width: 32px;
   height: 32px;
-  line-height: 32px;
   border-radius: 50%;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: white;
-  margin: 0 8px 0 -12px;
+  margin: 0 0.5em 0 0;
 `
 const Input = styled.input`
+  flex-grow: 1;
+  font-size: 1em;
   padding: 0.5em;
   margin: 0.5em;
   border: none;
   border-radius: 3px;
-  display: table-cell;
-  width: 80%;
 `
-const NameListItem = styled.div`
-  padding: 4px;
-  margin: 4px;
+const SubmitButton = styled.button`
+  ${ButtonStyles}
+  margin: 1em 1em 4em 1em;
 `
+
 
 const PlayerNames = () => {
 
@@ -40,7 +56,9 @@ const PlayerNames = () => {
     for (let i = 1, j = numberPlayers + 1; i < j; i += 1) {
       const playername = event.target.elements[`playername${i}`].value
       const player = { number: i, name: playername }
-      dbref.push(player)
+      if (playername){
+        dbref.push(player)
+      } 
     }
   }
 
@@ -53,11 +71,9 @@ const PlayerNames = () => {
       </NameListItem>)
   }
   return (
-    <PlayerNamesWrapper>
-      <form onSubmit={submitNames}>
+    <PlayerNamesWrapper onSubmit={submitNames}>
         {nameInputs}
-        <button type="submit">Submit names</button>
-      </form>
+        <SubmitButton type="submit">Submit names</SubmitButton>
     </PlayerNamesWrapper>
   )
 };

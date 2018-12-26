@@ -1,18 +1,24 @@
 import React from 'react'
 import * as firebase from 'firebase'
 import styled from 'styled-components'
+import { ButtonStyles } from '../style'
 
-const LoginWrapper = styled.div`
+const LoginWrapper = styled.form`
   grid-column: 2;
   display: flex;
   justify-content: center;
   color: #FFFFFF;
-  > input {
-    padding: 16px 16px;
-    font-size: 1em;
-    }
 `
-
+const LoginButton = styled.button`
+    ${ButtonStyles}
+`
+const PasswordInput = styled.input`
+  border-radius: 8px;
+  padding: 0.5em;
+  margin: 0.5em;
+  border: none;
+  text-decoration: none;
+`
 
 const Login = () => {
   const login = (event) => {
@@ -24,11 +30,9 @@ const Login = () => {
 
 
   return (
-    <LoginWrapper>
-      <form onSubmit={login}>
-        <input type="password" name="password" placeholder="Password" />
-        <button type="submit">Login</button>
-      </form>
+    <LoginWrapper onSubmit={login}>
+      <PasswordInput type="password" name="password" placeholder="Password" />
+      <LoginButton type="submit" transparent>Login</LoginButton>
     </LoginWrapper>
   )
 };

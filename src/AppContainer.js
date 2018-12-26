@@ -56,12 +56,15 @@ class AppContainer extends Component {
         item.key = evsnap.key
         ev.push(item)
 
-        // Add points to players, mutating the pPoints array
+        // Add points to players
         if (item.players) {
           for (let i = 0; i < item.players.length; i += 1) {
             const plkey = pPoints.filter(pl => pl.key === item.players[i])
             if (plkey.length < 1) {
-              const player = { key: item.players[i], points: Number(item.points) }
+              const player = { 
+                key: item.players[i], 
+                points: Number(item.points) 
+              }
               pPoints.push(player)
             } else {
               plkey[0].points += item.points
@@ -105,12 +108,12 @@ class AppContainer extends Component {
       }
     }
     
-    const played = [].concat(...lastround.map(event => event.players))
+    const played = lastround.flatMap(event => event.players)
     const eliminations = eventData.filter(event => event.points === 0)
-    const eliminated = [].concat(...eliminations.map(event => event.players))
-    const roundplayers = playerList.filter(player => eliminated.indexOf(player) === -1)
-    const bench = roundplayers.filter(player => played.indexOf(player) === -1)
-    const benchData = [].concat(...bench.map(player => playerData.filter(data => data.key === player)))
+    const eliminated = eliminations.flatMap(event => event.players)
+    const roundplayers = playerList.filter(player => eliminated.indexOf(player) < 0)
+    const bench = roundplayers.filter(player => played.indexOf(player) < 0)
+    const benchData = bench.flatMap(player => playerData.filter(data => data.key === player))
     const playedData = played.map(player => {
       const nName = playerData.find(nm => nm.key === player)
       const nPoints = playerPoints.find(pts => pts.key === player)
@@ -118,7 +121,6 @@ class AppContainer extends Component {
     }).sort((a, b) => b.points - a.points)
     const sceneNumber = this.state.events.length + 1 - eliminations.length
     const roundNumber = eliminations ? eliminations.length + 1 : 1
-
 
     return (
       <App
