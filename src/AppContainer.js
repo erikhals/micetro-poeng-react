@@ -5,19 +5,17 @@ import App from './App'
 
 class AppContainer extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
+  state = {
       players: [],
       events: [],
       playerPoints: [],
       email: "erik@xvision.no",
       authed: false,
-      loading: true
+      loading: true,
+      sideDrawerOpen: false
     }
-  }
 
-  componentWillMount() {
+  componentDidMount() {
     this.removeListener = firebase.auth().onAuthStateChanged(firebaseUser => {
       if (firebaseUser) {
         this.setState({
@@ -39,14 +37,12 @@ class AppContainer extends Component {
         pl.push(player)
       })
       if (pl) {
-        this.setState(
-          {
+        this.setState({
             players: pl,
             loading: false
           }
         )
       }
-
     })
     firebase.database().ref("state/events").on("value", snap => {
       const ev = []
@@ -89,9 +85,18 @@ class AppContainer extends Component {
   componentWillUnmount() {
     this.removeListener()
   }
+  
+  drawerToggleClickHandler = () => {
+    this.setState((prevState) => {
+      return {sideDrawerOpen: !prevState.sideDrawerOpen}
+    })
+  }
+
+  backdropClickHandler = () => {
+    this.setState({sideDrawerOpen: false})
+  }
 
   render() {
-
     const playerData = this.state.players
     const playerPoints = this.state.playerPoints
     const playerList = []
@@ -133,10 +138,13 @@ class AppContainer extends Component {
         loading={this.state.loading}
         eventNumber={sceneNumber}
         roundNumber={roundNumber}
+        sideDrawerOpen={this.state.sideDrawerOpen}
+        drawerClickHandler={this.drawerToggleClickHandler}
+        backdropClickHandler={this.backdropClickHandler}
       />
     );
   }
 
 }
 
-export default AppContainer;
+export default AppContainer

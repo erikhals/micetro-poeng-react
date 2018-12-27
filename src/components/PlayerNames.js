@@ -67,7 +67,7 @@ const PlayerNames = () => {
   for (let i = 1, j = numberPlayers + 1; i < j; i += 1) {
     nameInputs.push(<NameListItem key={i}>
       <PlayerNumber>{i}.</PlayerNumber> 
-      <Input type="text" name={`playername${i}`} placeholder="Name" />
+      <Input type="text" name={`playername${i}`} placeholder="Name" maxLength="16" />
       </NameListItem>)
   }
   return (

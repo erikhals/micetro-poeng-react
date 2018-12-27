@@ -27,7 +27,9 @@ const SceneNameInput = styled.input`
 const PointsWrapper = styled.div`
   display: flex;
   width: 100%;
+  max-width: 300px;
   margin-top: 0.5em;
+  align-self: center;
   justify-content: space-between;
   align-items: center;
 `

@@ -5,21 +5,29 @@ import * as firebase from "firebase"
 import Elimination from "./Elimination"
 
 class EliminationContainer extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      marked: []
-    }
+  state = {
+    marked: []
   }
 
   markPlayer = player => {
     const points = player.target.getAttribute("datapoints")
-    const markedPlayers = this.props.players
-      .filter(item => (item.points <= points))
-      .map(item => item.key)
-    this.setState({
-      marked: markedPlayers
-    })
+    const key = player.target.id
+    if (this.props.players.length > 3){
+      const markedPlayers = this.props.players
+        .filter(item => item.points <= points)
+        .map(item => item.key)
+      this.setState({
+          marked: markedPlayers
+        })
+    } else if (player.target.checked === true){
+        this.setState(prevState => ({
+          marked: [key, ...prevState.marked]
+        })) 
+    } else {
+        this.setState(prevState => ({
+          marked: [...prevState.marked.filter(playing => playing !== key)]
+        }))
+    }
   }
 
   saveButtonActive = () => {
@@ -43,7 +51,7 @@ class EliminationContainer extends Component {
     evRef.push(elEvent)
   }
 
-  continueAll = (event) => {
+  continueAll = event => {
     event.preventDefault()
     const elEvent = {
       number: this.props.eventNumber,

@@ -5,14 +5,11 @@ import * as firebase from 'firebase'
 import NewScene from './NewScene'
 
 class NewSceneContainer extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      bench: props.bench,
+  state = {
+      bench: this.props.bench,
       stage: [],
       points: 0
     }
-  }
 
   setPoints = (e) => {
     const sPoints = Number(e.target.value)

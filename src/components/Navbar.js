@@ -24,7 +24,7 @@ const FunctionButtons = styled.div`
 `
 
 const Button = styled.button`
-  color: #fff;
+  color: ${props => props.theme.text};
   font-family: Cairo;
   background-color: Transparent;
   border: none;
@@ -34,10 +34,7 @@ const Button = styled.button`
 `
 
 const Navbar = props => {
-  const resetState = () => {
-    const stateRef = firebase.database().ref("state")
-    stateRef.remove()
-  }
+
   const undoLast = () => {
     firebase.database().ref("state/events").orderByChild("events").limitToLast(1).once('child_added').then((snap) => {
       snap.ref.remove()
@@ -54,7 +51,7 @@ const Navbar = props => {
     <NavbarWrapper>
       {props.authed
         ? <FunctionButtons>
-          <Button onClick={resetState}>Reset</Button>
+          <Button onClick={props.drawerClickHandler}>Reset</Button>
           <Button onClick={undoLast} disabled={(props.eventNumber <2 )}>Undo</Button>
           <Button onClick={logOut}>Log out</Button>
         </FunctionButtons>
@@ -65,7 +62,8 @@ const Navbar = props => {
 
 Navbar.propTypes = {
   authed: PropTypes.bool.isRequired,
-  eventNumber: PropTypes.number
+  eventNumber: PropTypes.number,
+  drawerClickHandler: PropTypes.func.isRequired
 }
 
 Navbar.defaultProps = {

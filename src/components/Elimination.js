@@ -42,7 +42,7 @@ const Number = styled.div`
   background: ${props => props.theme.primary};
   width: 36px;
   height: 36px;
-  margin: 0 5px;
+  margin: 0 5px 0 0;
 `
 const Name = styled.div`
   display: flex;
@@ -93,7 +93,6 @@ const Elimination = props => {
 
   return (
     <EliminationForm onSubmit={props.submitElimination}>
-      <div>Elimination</div>
         <div>
           Eliminate: <List>{benchNode}</List>
         </div>
