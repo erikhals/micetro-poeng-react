@@ -56,6 +56,13 @@ const PlayersWrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
   margin-top: 0.5em;
+  min-height: 40px;
+`
+const BenchWrapper = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: 0.5em;
+  min-height: 80px;
 `
 const Button = styled.button`
   ${ButtonStyles}
@@ -120,7 +127,7 @@ const NewScene = props => {
           Save scene
         </Button>
       </SceneWrapper>
-      <PlayersWrapper> {benchNode}</PlayersWrapper>
+      <BenchWrapper> {benchNode}</BenchWrapper>
     </NewSceneForm>
   )
 }
