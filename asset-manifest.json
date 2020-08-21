@@ -1,4 +1,11 @@
 {
-  "main.js": "static/js/main.91be9b6e.js",
-  "main.js.map": "static/js/main.91be9b6e.js.map"
+  "main.js": "/micetro-poeng-react/static/js/main.5f3108ce.chunk.js",
+  "main.js.map": "/micetro-poeng-react/static/js/main.5f3108ce.chunk.js.map",
+  "static/js/1.2ce59bfc.chunk.js": "/micetro-poeng-react/static/js/1.2ce59bfc.chunk.js",
+  "static/js/1.2ce59bfc.chunk.js.map": "/micetro-poeng-react/static/js/1.2ce59bfc.chunk.js.map",
+  "runtime~main.js": "/micetro-poeng-react/static/js/runtime~main.d63067fa.js",
+  "runtime~main.js.map": "/micetro-poeng-react/static/js/runtime~main.d63067fa.js.map",
+  "index.html": "/micetro-poeng-react/index.html",
+  "precache-manifest.c67859b1e1736b76384642653bbd2fff.js": "/micetro-poeng-react/precache-manifest.c67859b1e1736b76384642653bbd2fff.js",
+  "service-worker.js": "/micetro-poeng-react/service-worker.js"
 }
