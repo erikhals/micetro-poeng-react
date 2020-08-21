@@ -56,7 +56,7 @@ class AppContainer extends Component {
         if (item.players) {
           for (let i = 0; i < item.players.length; i += 1) {
             const plkey = pPoints.filter(pl => pl.key === item.players[i])
-            if (plkey.length < 1) {
+            if (plkey.length < 1) {       // if no matching player
               const player = { 
                 key: item.players[i], 
                 points: Number(item.points) 

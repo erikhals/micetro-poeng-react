@@ -12,18 +12,18 @@ class EliminationContainer extends Component {
   markPlayer = player => {
     const points = player.target.getAttribute("datapoints")
     const key = player.target.id
-    if (this.props.players.length > 3){
+    if (this.props.players.length > 3){         // mark players with similar score or less
       const markedPlayers = this.props.players
-        .filter(item => item.points <= points)
+        .filter(item => item.points <= points)  
         .map(item => item.key)
       this.setState({
           marked: markedPlayers
         })
-    } else if (player.target.checked === true){
+    } else if (player.target.checked === true){ // if less than 3 players, mark manually
         this.setState(prevState => ({
           marked: [key, ...prevState.marked]
         })) 
-    } else {
+    } else {                                    // remove when unchecked
         this.setState(prevState => ({
           marked: [...prevState.marked.filter(playing => playing !== key)]
         }))

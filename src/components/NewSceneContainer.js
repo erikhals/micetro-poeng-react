@@ -30,6 +30,8 @@ class NewSceneContainer extends Component {
     })
   }
 
+
+
   playerToBench = (playerindex) => {
     const fromStage = Array.from(this.state.stage)
     const player = fromStage.splice(playerindex, 1)[0]
