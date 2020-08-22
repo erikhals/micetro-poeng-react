@@ -12,7 +12,7 @@ self.__precacheManifest = [
     "url": "/micetro-poeng-react/static/js/runtime~main.d63067fa.js"
   },
   {
-    "revision": "081e57c22172908057ff5c341732623a",
+    "revision": "479399894b2f5ebbb32625a528c33811",
     "url": "/micetro-poeng-react/index.html"
   }
 ];

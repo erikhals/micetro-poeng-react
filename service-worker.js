@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/micetro-poeng-react/precache-manifest.b1ac11909087575a116dbdc70b62fa57.js"
+  "/micetro-poeng-react/precache-manifest.1e112d659250f76ebab9bd37236a27c8.js"
 );
 
 workbox.clientsClaim();
